@@ -5,6 +5,9 @@
  */
 package chatapp;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author aussi
@@ -17,7 +20,21 @@ public class ChatApp
      */
     public static void main(String[] args)
     {
-        // TODO code application logic here
+        ibisTest();
+    }
+    
+    static void ibisTest()
+    {
+        Thread t = new Discovery();
+        t.start();
+        
+        try
+        {
+            t.join();
+        } catch (InterruptedException ex)
+        {
+            Logger.getLogger(ChatApp.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }
