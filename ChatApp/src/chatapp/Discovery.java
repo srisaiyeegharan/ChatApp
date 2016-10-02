@@ -109,17 +109,17 @@ public class Discovery extends Thread
         
         //check hosts for subnet in a loop every T seconds
         checkHosts(myAddress);
-        
+        //checkHost(myAddress);
     }
     public synchronized void addToChatGroup(String hostname,IP4Address address)
     {
         //TO DO updating the host lists for ARE U ONLINE confirmation
     }
-    private void checkHosts(IP4Address address) throws Exception
+    private void checkHosts(IP4Address localAddress) throws Exception
     {
         //iterate through IP RANGE to check if connected
-        IP4Address nextAdd=address;
-        IP4Address previousAdd=address;
+        IP4Address nextAdd=localAddress;
+        IP4Address previousAdd=localAddress;
         int timeout=1000;
         for(int i=0;i<IP_RANGE;i++)
         {
@@ -149,11 +149,11 @@ public class Discovery extends Thread
                 
         }
         
-        System.out.println(address);
+        System.out.println(localAddress);
         
         
         
-        System.out.println(address.previous());
+        System.out.println(localAddress.previous());
       
         
 //        for (int i=1;i<255;i++)
@@ -172,6 +172,14 @@ public class Discovery extends Thread
 //            }
 //            
 //        }
+    }
+    private void checkHost(IP4Address address)
+    {
+         if(pingHostApplication(address))
+              {
+                  connectedHosts.add(address);
+                  System.out.println(address.toString()+" Reachable");
+              }
     }
     
     private boolean pingHostApplication(IP4Address address) 
