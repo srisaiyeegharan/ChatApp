@@ -74,10 +74,6 @@ public class CommandLine extends Thread {
             messageString = message.replace(">", "");
            
        }
-       
-      
-       
-     
        switch (connectionArray[0].toLowerCase())
        {
            case "all":
@@ -93,8 +89,7 @@ public class CommandLine extends Thread {
     }   
     
     public void sendAll(String pMode, String pMessage)
-    {
-        
+    {           
         System.out.println("Sending Everyone a message");
         System.out.println(pMode + " and " + pMessage);
     }

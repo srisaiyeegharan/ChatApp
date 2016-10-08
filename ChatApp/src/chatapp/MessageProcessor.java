@@ -10,6 +10,16 @@ package chatapp;
  *
  * @author Srisaiyeegharan
  */
-public class MessageProcessor {
+public class MessageProcessor  {
+   
     
+    MessageProcessor(String pMode, String pMessage) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    MessageProcessor() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+
 }
