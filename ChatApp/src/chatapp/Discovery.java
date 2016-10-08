@@ -106,10 +106,15 @@ public class Discovery extends Thread
         
         //create IP4 class with address annd subnet
         IP4Address myAddress= new IP4Address(localHost.getHostIP().getHostName(), String.valueOf(subnetBits));
-        
+        IP4Address temp= new IP4Address("10.1.46.136", String.valueOf(subnetBits));
         //check hosts for subnet in a loop every T seconds
+       // checkHosts(myAddress);
+        System.out.println(subnetBits);
         checkHosts(myAddress);
-        //checkHost(myAddress);
+        System.out.println(connectedHosts.toString());
+        
+        //TO DO- Send ARE YOU ONLINE REQUEST to all connected hosts
+        
     }
     public synchronized void addToChatGroup(String hostname,IP4Address address)
     {
