@@ -10,16 +10,28 @@ package chatapp;
  *
  * @author Srisaiyeegharan
  */
-public class MessageProcessor  {
+public class MessageProcessor extends Thread  {
    
+    CommandLine l = new CommandLine();
     
-    MessageProcessor(String pMode, String pMessage) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
     MessageProcessor() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+     
     }
-
-
+    
+    public void messageProcessorSendAll(String pRecievedMode, String pRecievedMessage)
+    {
+        
+    }
+    
+    public void messageProcessorSendPm(String pRecievedMode, String pRecievedIp, String pRecievedMessage)
+    {
+        
+    }
+    
+    public void messageProcessorSendFile(String pRecievedMode, String pRecievedIp, String pRecievedFileName)
+    {
+        
+    }
+    
+    
 }

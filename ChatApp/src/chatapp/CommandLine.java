@@ -1,6 +1,7 @@
 package chatapp;
 import java.io.InputStream;
 import java.io.PrintStream;
+import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 /*
@@ -16,43 +17,50 @@ import java.util.regex.Pattern;
 
 public class CommandLine extends Thread {
     private PrintStream stream;
-    private InputStream inpStream;
+    MessageProcessor m = new MessageProcessor();
     
     public CommandLine() 
     {
-        stream=System.out;
-        inpStream=System.in;
+        stream = System.out;
         
     }
 
     @Override
     public void run() {
-      stream.println("Welcome to Chat Messages");  
+        stream.println("Welcome to Chat Messages");  
         String sendAllMessage = "<ALL>Hello how are you";
         String sendPeerMessage = "<PM,192.168.45.1>Hello Peer How are you";
         String sendPeerFile = "<FILE,192.168.45.1,sri.jpg>";
-        stripMessage(sendPeerFile);
+        userInput();
+        
+        
+    }
+    
+    public void userInput()
+    {
+        Scanner input = new Scanner(System.in);
+        String line = input.nextLine();
+        stripMessage(line);
     }
     
     public void stripMessage(String pMessage)
     { 
-       System.out.println("Lets Strip the Send Message");
+       stream.println("Lets Strip the Send Message");
        String regex = "<.+>";
        String reg =">.+";
        String con = null;
-       String messageString = "";
-       //String reg = "\\<(.*?)\\>";
        String message = null;
+       String messageString = "";
        Pattern pattern = Pattern.compile(regex);
        Matcher connection = pattern.matcher(pMessage);
       
        while (connection.find()) {
             con = connection.group();
-            System.out.println(con);
+            stream.println(con);
         }
        String conString = con.replace("<","");
        String connectionString = conString.replace(">", "");
-       System.out.println(connectionString);
+       stream.println(connectionString);
        
        String[] connectionArray;
        
@@ -60,7 +68,7 @@ public class CommandLine extends Thread {
        int connectionArrayLength = connectionArray.length;
        for (int i = 0; i<connectionArrayLength; i++)
        {
-           System.out.println(connectionArray[i]);
+           stream.println(connectionArray[i]);
        }
        
        if (!"file".equals(connectionArray[0].toLowerCase()))
@@ -69,7 +77,7 @@ public class CommandLine extends Thread {
             Matcher stringMsg = msgPattern.matcher(pMessage);
              while (stringMsg.find()) {
             message = stringMsg.group();
-            System.out.println(message);
+            stream.println(message);
          }
             messageString = message.replace(">", "");
            
@@ -77,33 +85,36 @@ public class CommandLine extends Thread {
        switch (connectionArray[0].toLowerCase())
        {
            case "all":
-               sendAll(connectionArray[0],messageString);
+               sendAll(connectionArray[0].toLowerCase(),messageString);
                break;
            case "pm":
-               sendPm(connectionArray[0],connectionArray[1],messageString);
+               sendPm(connectionArray[0].toLowerCase(),connectionArray[1],messageString);
                break;
            case "file":
-               sendFile(connectionArray[0], connectionArray[1], connectionArray[2]);
+               sendFile(connectionArray[0].toLowerCase(), connectionArray[1], connectionArray[2]);
                break;    
        }
     }   
     
     public void sendAll(String pMode, String pMessage)
     {           
-        System.out.println("Sending Everyone a message");
-        System.out.println(pMode + " and " + pMessage);
+        stream.println("Sending Everyone a message");
+        stream.println(pMode + " and " + pMessage);
+        m.messageProcessorSendAll(pMode, pMessage);
     }
     public void sendPm(String pMode, String pIp, String pMessage) 
     {
-        System.out.println("Sending a private message");
-        System.out.println(pMode + " and " + pIp + " and " + pMessage);
+        stream.println("Sending a private message");
+        stream.println(pMode + " and " + pIp + " and " + pMessage);
+        m.messageProcessorSendPm(pMode, pIp, pMessage);
     }
     public void sendFile(String pMode, String pIp, String pFileName)
     {
-        System.out.println("Sending a File");
-        System.out.println(pMode + " and " + pIp + " and " + pFileName);
+        stream.println("Sending a File");
+        stream.println(pMode + " and " + pIp + " and " + pFileName);
+        m.messageProcessorSendFile(pMode, pIp, pFileName);
     }
-    public void recieveMessage(String mode, String ip,String message)
+    public void writeRecievedMessage(String mode, String ip, String message)
     {
        String recievedMessage;
        switch (mode.toLowerCase())
@@ -118,8 +129,8 @@ public class CommandLine extends Thread {
                break;
         }
     }
-    public void recieveMessage(String ip, String file)
+    public void writeRecievedFile(String ip, String file)
     {
-      
+        stream.println("Recieving a File");
     }
 }

@@ -20,11 +20,13 @@ public class ChatApp
      */
     public static void main(String[] args)
     {
-        srisTest();
+        runCommand();
+        runMsgProcessing();
+        
         //ibisTest();
     }
     
-    static void srisTest()
+    static void runCommand()
     {
         Thread s = new CommandLine();
         s.start();
@@ -32,6 +34,21 @@ public class ChatApp
         try
         {
             s.join();
+        } catch (InterruptedException ex)
+        {
+            Logger.getLogger(ChatApp.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    
+     static void runMsgProcessing()
+    {
+        Thread m = new MessageProcessor();
+        m.start();
+        
+        try
+        {
+            m.join();
         } catch (InterruptedException ex)
         {
             Logger.getLogger(ChatApp.class.getName()).log(Level.SEVERE, null, ex);
