@@ -41,4 +41,14 @@ public class Host
     {
         this.hostName = hostName;
     }
+    
+   public String getIPString()
+   {
+       String str= hostIP.toString();
+       str=str.substring(1);
+       
+       return str;
+   } 
+    
+
 }
