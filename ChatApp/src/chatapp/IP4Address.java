@@ -50,6 +50,7 @@ public class IP4Address
         return (value >> (i*8)) & 0x000000FF;
     }
 
+    @Override
     public String toString()
     {
         return address;
@@ -115,7 +116,24 @@ public class IP4Address
     
     public InetAddress getInetAddress() throws UnknownHostException
     {
+        
         return InetAddress.getByName(address);
     }
+    
+    public String[] getAllAddresses()
+    {
+        
+        String[] addies;
+        SubnetUtils info = new SubnetUtils(getCIDR(address, subNet)); 
+        addies=info.getInfo().getAllAddresses();
+        
+        return addies;
+    }
+    public SubnetUtils.SubnetInfo getSubnetInfo()
+    {
+        SubnetUtils info= new SubnetUtils(getCIDR(address, subNet)); 
+        return info.getInfo();
+    }
+              
 }
 

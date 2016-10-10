@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Pattern;
-import sun.security.pkcs11.wrapper.Functions;
+
 //using subnet utils provided by apache
 import  org.apache.commons.net.util.SubnetUtils;
 
@@ -28,8 +28,10 @@ import  org.apache.commons.net.util.SubnetUtils;
 public class Discovery extends Thread
 {
     private ArrayList<IP4Address> connectedHosts;
-    private HashMap<String,IP4Address> groupChatHosts;
+    private HashMap<String,InetAddress> groupChatHosts;
     private Host localHost;
+    private final String BROADCAST_CODE_MESSAGE="[ONLINE?IFFY]";
+    private final int COM_PORT=4003;
 
     public Host getLocalHost()
     {
@@ -37,14 +39,18 @@ public class Discovery extends Thread
     }
     private final int IP_RANGE=10;
     private final int FILE_TRANSFER_PORT=4009;
+    private final String MULTICAST_ADD="239.255.142.99";
+    private final long BCAST_INTERVAL=10000;
     public Discovery()
     {
         connectedHosts= new ArrayList<>();
+        groupChatHosts= new HashMap<>();
         try
         {
             
           //set correct network interface for correct local ip            
           localHost= new Host(getCorrectLocalIP(), "me");
+            System.out.println(localHost.getHostIP());
         } catch (Exception e)
         {
             System.err.println("Error Getting LocalHost");
@@ -58,8 +64,19 @@ public class Discovery extends Thread
     {
         try
         {
-            discoverHost(); //To change body of generated methods, choose Tools | Templates.
-        } catch (Exception ex)
+            while(true)
+            {
+                discoverHost();
+                Thread.sleep(BCAST_INTERVAL);
+                
+            }
+        }
+        catch(InterruptedException i)
+        {
+            System.err.println("Interupted thread discovery");
+            Thread.currentThread().interrupt();
+        }
+        catch (Exception ex)
         {
             System.err.println("Failed to run discovery");
             Logger.getLogger(Discovery.class.getName()).log(Level.SEVERE, null, ex);
@@ -79,15 +96,17 @@ public class Discovery extends Thread
                 if (netint.isLoopback() || !netint.isUp())
                     continue;
                 String name=netint.getDisplayName();
-                if(name.contains("Virtual"))
+                if(name.contains("Virtual") )
                     continue;
                 
+                System.out.println(name);
                 //iterate through IPs
                 for(InetAddress address :Collections.list(netint.getInetAddresses()))
                 {
                     if(!(address instanceof Inet4Address))
                         continue;
                     //return a valid IP
+                    System.out.println(address);
                     return (Inet4Address)address;
                 }
             }
@@ -105,20 +124,39 @@ public class Discovery extends Thread
         short subnetBits=networkInterface.getInterfaceAddresses().get(0).getNetworkPrefixLength();
         
         //create IP4 class with address annd subnet
-        IP4Address myAddress= new IP4Address(localHost.getHostIP().getHostName(), String.valueOf(subnetBits));
-        IP4Address temp= new IP4Address("10.1.46.136", String.valueOf(subnetBits));
+       
+        IP4Address myAddress= new IP4Address(localHost.getIPString(), String.valueOf(subnetBits));
+        //IP4Address temp= new IP4Address("10.1.46.136", String.valueOf(subnetBits));
         //check hosts for subnet in a loop every T seconds
        // checkHosts(myAddress);
-        System.out.println(subnetBits);
-        checkHosts(myAddress);
-        System.out.println(connectedHosts.toString());
+        
+        
+        broadcastCode();
+        System.out.println(groupChatHosts.toString());
         
         //TO DO- Send ARE YOU ONLINE REQUEST to all connected hosts
         
     }
-    public synchronized void addToChatGroup(String hostname,IP4Address address)
+    public synchronized void addToChatGroup(String hostname,InetAddress address)
     {
         //TO DO updating the host lists for ARE U ONLINE confirmation
+        if(!groupChatHosts.containsKey(hostname))
+        {
+            groupChatHosts.put(hostname, address);
+            System.out.println(hostname+" Added with ip "+address);
+        }
+    }
+    
+    private void broadcastCode() throws UnknownHostException
+    {
+        System.out.println("broadcasting code");
+        //Multicast UDP packet to all hosts in subnet on port 4003
+        Inet4Address broadcAddress=(Inet4Address) Inet4Address.getByName(MULTICAST_ADD);
+        Thread t= new MessageSendUDP(broadcAddress, BROADCAST_CODE_MESSAGE, COM_PORT);
+        t.start();
+        
+        
+        
     }
     private void checkHosts(IP4Address localAddress) throws Exception
     {
@@ -161,22 +199,7 @@ public class Discovery extends Thread
         System.out.println(localAddress.previous());
       
         
-//        for (int i=1;i<255;i++)
-//        {
-//            String host=subnet + "." + i;
-//            try
-//            {
-//                if (InetAddress.getByName(host).isReachable(timeout))
-//            {
-//                System.out.println(host + " is reachable");
-//            }
-//            } catch (Exception e)
-//            {
-//                System.err.println("Exception Finding host");
-//                System.err.println(e.getMessage());
-//            }
-//            
-//        }
+//        
     }
     private void checkHost(IP4Address address)
     {
