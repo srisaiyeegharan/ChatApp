@@ -17,7 +17,7 @@ import java.util.logging.Logger;
 import java.util.regex.Pattern;
 
 //using subnet utils provided by apache
-import  org.apache.commons.net.util.SubnetUtils;
+
 
 
 /**
@@ -158,88 +158,88 @@ public class Discovery extends Thread
         
         
     }
-    private void checkHosts(IP4Address localAddress) throws Exception
-    {
-        //iterate through IP RANGE to check if connected
-        IP4Address nextAdd=localAddress;
-        IP4Address previousAdd=localAddress;
-        int timeout=1000;
-        for(int i=0;i<IP_RANGE;i++)
-        {
-            if(nextAdd.hasNext())
-            {
-              //get next host to ping
-              nextAdd=nextAdd.next(); 
-                System.out.println("pingig"+nextAdd.toString());
-              if(pingHostApplication(nextAdd))
-              {
-                  connectedHosts.add(nextAdd);
-                  System.out.println(nextAdd.toString()+"Reachable");
-              }
-                
-            }
-            
-            if(previousAdd.hasPrevious())
-            {
-                //get previous host
-                previousAdd=previousAdd.previous();
-                System.out.println("pingig"+previousAdd.toString());
-                if(pingHostApplication(previousAdd))
-                {
-                    System.out.println(previousAdd.toString()+"Reachable");
-                }
-            }
-                
-        }
-        
-        System.out.println(localAddress);
-        
-        
-        
-        System.out.println(localAddress.previous());
-      
-        
+//    private void checkHosts(IP4Address localAddress) throws Exception
+//    {
+//        //iterate through IP RANGE to check if connected
+//        IP4Address nextAdd=localAddress;
+//        IP4Address previousAdd=localAddress;
+//        int timeout=1000;
+//        for(int i=0;i<IP_RANGE;i++)
+//        {
+//            if(nextAdd.hasNext())
+//            {
+//              //get next host to ping
+//              nextAdd=nextAdd.next(); 
+//                System.out.println("pingig"+nextAdd.toString());
+//              if(pingHostApplication(nextAdd))
+//              {
+//                  connectedHosts.add(nextAdd);
+//                  System.out.println(nextAdd.toString()+"Reachable");
+//              }
+//                
+//            }
+//            
+//            if(previousAdd.hasPrevious())
+//            {
+//                //get previous host
+//                previousAdd=previousAdd.previous();
+//                System.out.println("pingig"+previousAdd.toString());
+//                if(pingHostApplication(previousAdd))
+//                {
+//                    System.out.println(previousAdd.toString()+"Reachable");
+//                }
+//            }
+//                
+//        }
 //        
-    }
-    private void checkHost(IP4Address address)
-    {
-         if(pingHostApplication(address))
-              {
-                  connectedHosts.add(address);
-                  System.out.println(address.toString()+" Reachable");
-              }
-    }
+//        System.out.println(localAddress);
+//        
+//        
+//        
+//        System.out.println(localAddress.previous());
+//      
+//        
+////        
+//    }
+//    private void checkHost(IP4Address address)
+//    {
+//         if(pingHostApplication(address))
+//              {
+//                  connectedHosts.add(address);
+//                  System.out.println(address.toString()+" Reachable");
+//              }
+//    }
     
-    private boolean pingHostApplication(IP4Address address) 
-    {
-        //tries to create a connection to FILE_TRANFER_PORT
-        //host using this application has to keep this port open
-        Socket testSock=null;
-        try
-        {
-            InetAddress inet=address.getInetAddress();
-             testSock= new Socket();
-             testSock.connect(new InetSocketAddress(inet,FILE_TRANSFER_PORT), 1000);
-        } catch (UnknownHostException ex)
-        {
-            Logger.getLogger(Discovery.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        catch(IOException e)
-        {
-            System.out.println(e.getMessage());
-            return false;
-        }
-        finally
-        {
-            try
-            {
-                if(testSock!=null)
-                testSock.close();
-            } catch (IOException ex)
-            {
-                Logger.getLogger(Discovery.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
-        return true;
-    }
+//    private boolean pingHostApplication(IP4Address address) 
+//    {
+//        //tries to create a connection to FILE_TRANFER_PORT
+//        //host using this application has to keep this port open
+//        Socket testSock=null;
+//        try
+//        {
+//            InetAddress inet=address.getInetAddress();
+//             testSock= new Socket();
+//             testSock.connect(new InetSocketAddress(inet,FILE_TRANSFER_PORT), 1000);
+//        } catch (UnknownHostException ex)
+//        {
+//            Logger.getLogger(Discovery.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        catch(IOException e)
+//        {
+//            System.out.println(e.getMessage());
+//            return false;
+//        }
+//        finally
+//        {
+//            try
+//            {
+//                if(testSock!=null)
+//                testSock.close();
+//            } catch (IOException ex)
+//            {
+//                Logger.getLogger(Discovery.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        }
+//        return true;
+//    }
 }
