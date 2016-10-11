@@ -11,6 +11,7 @@ import java.net.DatagramSocket;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.SocketException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -20,14 +21,27 @@ import java.util.logging.Logger;
  */
 public class MessageSendUDP extends Thread
 {
-    private InetAddress ip;
+    private ArrayList<InetAddress> ips;
     private String msg;
     private int port;
     public MessageSendUDP(InetAddress IPAddress,String message,int port)
     {
-       ip=IPAddress;
+        ips= new ArrayList<>();
+       ips.add(IPAddress);
        msg=message;
        this.port=port;
+    }
+    
+    public MessageSendUDP(ArrayList<InetAddress> ipAddresses ,String message,int port)
+    {
+        ips= new ArrayList<>();
+       
+       msg=message;
+       this.port=port;
+        for(InetAddress ip : ipAddresses)
+        {
+            ips.add(ip);
+        }
     }
 
     @Override
@@ -62,12 +76,16 @@ public class MessageSendUDP extends Thread
         buff=msg.getBytes();
         String st= new String(buff);
         System.out.println("Buffer"+st);
-        packet= new DatagramPacket(buff,buff.length,ip,port);
+        for(InetAddress ip :ips)
+        {
+            packet= new DatagramPacket(buff,buff.length,ip,port);
+
+            socket.send(packet);
+
+            System.out.println("Packet Sent:"+packet.getData());
+            Logger.getLogger(MessageSendUDP.class.getName()).log(Level.FINE, msg+"sent in packet");
+        }
         
-        socket.send(packet);
-        
-        System.out.println("Packet Sent:"+packet.getData());
-        Logger.getLogger(MessageSendUDP.class.getName()).log(Level.FINE, msg+"sent in packet");
     }
     
 }
