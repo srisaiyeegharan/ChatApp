@@ -17,12 +17,13 @@ import java.util.regex.Pattern;
 
 public class CommandLine extends Thread {
     private PrintStream stream;
-    MessageProcessor m = new MessageProcessor();
+    private MessageProcessor m;
     
-    public CommandLine() 
+    
+    public CommandLine(MessageProcessor msgProcessor) 
     {
         stream = System.out;
-        
+        m=msgProcessor;
     }
 
     @Override
@@ -83,16 +84,17 @@ public class CommandLine extends Thread {
             messageString = message.replace(">", "");
            
        }
-       switch (connectionArray[0].toLowerCase())
+       String mode=connectionArray[0];
+       switch (mode)
        {
            case "all":
-               sendAll(connectionArray[0].toLowerCase(),messageString);
+               sendAll(mode,messageString);
                break;
            case "pm":
-               sendPm(connectionArray[0].toLowerCase(),connectionArray[1],messageString);
+               sendPm(mode,connectionArray[1],messageString);
                break;
            case "file":
-               sendFile(connectionArray[0].toLowerCase(), connectionArray[1], connectionArray[2]);
+               sendFile(mode, connectionArray[1], connectionArray[2]);
                break;    
        }
     }   
