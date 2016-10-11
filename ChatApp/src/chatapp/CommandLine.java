@@ -31,11 +31,12 @@ public class CommandLine extends Thread {
         String sendAllMessage = "<ALL>Hello how are you";
         String sendPeerMessage = "<PM,192.168.45.1>Hello Peer How are you";
         String sendPeerFile = "<FILE,192.168.45.1,sri.jpg>";
-        userInput();
+         userInput();
         
         
     }
     
+    //Takes in the user input from command line 
     public void userInput()
     {
         Scanner input = new Scanner(System.in);
