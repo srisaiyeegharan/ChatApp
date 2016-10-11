@@ -89,7 +89,7 @@ public class MessageProcessServer extends Thread{
                     msgValue=split[1];
                     //call UDPchat with message from single person
                     System.out.println("Message from single"+msgValue);
-                    //sending message to the MessageProcessor
+                       //sending message to the MessageProcessor
                     messageProcessor.recieveMessage(split[0], recievePacket.getAddress(), msgValue);
                 }
                 else

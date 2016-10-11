@@ -14,7 +14,8 @@ public class Utility {
     
     public static String getStringFromInet(InetAddress pIp)
     {
-        String stringIp;
+        String ip = pIp.toString();
+        String stringIp = ip.replace("/", "");
         return stringIp;
     }
 }
