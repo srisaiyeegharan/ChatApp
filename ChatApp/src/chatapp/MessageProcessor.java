@@ -22,9 +22,10 @@ public class MessageProcessor extends Thread  {
     private Discovery discovery;
     
     
-    MessageProcessor(CommandLine commandl,Discovery dis) {
+    MessageProcessor(Discovery dis) {
         
-     commandLine=commandl;
+     commandLine=new CommandLine(this);
+     
      discovery=dis;
     }
     
