@@ -116,6 +116,7 @@ public class CommandLine extends Thread {
            
        }
       
+       //switch to call methods based on the mode from user input
        switch (mode)
        {
            case "all":
