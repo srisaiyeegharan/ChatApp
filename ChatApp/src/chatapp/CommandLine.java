@@ -16,7 +16,9 @@ import java.util.regex.Pattern;
  */
 
 public class CommandLine extends Thread {
+    //Global variable stream
     private PrintStream stream;
+    //Global variable m 
     private MessageProcessor m;
     
     
@@ -28,11 +30,15 @@ public class CommandLine extends Thread {
 
     @Override
     public void run() {
+        
+        //Welcome Message 
         stream.println("Welcome to Chat Messages");  
+        //Testing purpose
         String sendAllMessage = "<ALL>Hello how are you";
         String sendPeerMessage = "<PM,192.168.45.1>Hello Peer How are you";
         String sendPeerFile = "<FILE,192.168.45.1,sri.jpg>";
-         userInput();
+        //Calling the userInput method
+        userInput();
         
         
     }
@@ -40,51 +46,76 @@ public class CommandLine extends Thread {
     //Takes in the user input from command line 
     public void userInput()
     {
+        
         Scanner input = new Scanner(System.in);
+        //scanner moves down after returning the current line.
         String line = input.nextLine();
+        //passing the read String to stripMessage method
         stripMessage(line);
     }
     
     public void stripMessage(String pMessage)
     { 
+        
        stream.println("Lets Strip the Send Message");
+       //regex that finds everything from < to >
        String regex = "<.+>";
+       //regex that finds everything from > onwards
        String reg =">.+";
+       
        String con = null;
        String message = null;
+       //initialise messageString
        String messageString = "";
+       
        Pattern pattern = Pattern.compile(regex);
        Matcher connection = pattern.matcher(pMessage);
       
        while (connection.find()) {
+           //finding the string based on given regex
             con = connection.group();
+            //prints the found string to console
             stream.println(con);
         }
+       
+       //getting rid of "<" from the string
        String conString = con.replace("<","");
+       //getting rid of ">" from the string 
        String connectionString = conString.replace(">", "");
+       //printing the string to console
        stream.println(connectionString);
        
+       //ConnectionArray is a string array which contains 
+       //the details from user input which has the mode,ip and filename
        String[] connectionArray;
        
+       //split everything between <> by comma
        connectionArray = connectionString.split(",");
+       //finding the length of array
        int connectionArrayLength = connectionArray.length;
+       //looping through the connectionArray
+       //for testing purpose
        for (int i = 0; i<connectionArrayLength; i++)
        {
            stream.println(connectionArray[i]);
        }
+       //assigning mode the value
+       String mode=connectionArray[0];
        
-       if (!"file".equals(connectionArray[0].toLowerCase()))
+       //If the user input mode is file
+       if (!"file".equals(mode.toLowerCase()))
        {
             Pattern msgPattern = Pattern.compile(reg);  
             Matcher stringMsg = msgPattern.matcher(pMessage);
-             while (stringMsg.find()) {
+             while (stringMsg.find())
+             {
             message = stringMsg.group();
             stream.println(message);
          }
             messageString = message.replace(">", "");
            
        }
-       String mode=connectionArray[0];
+      
        switch (mode)
        {
            case "all":
