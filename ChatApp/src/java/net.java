@@ -10,5 +10,11 @@ package java;
  * @author Srisaiyeegharan
  */
 public class net {
+
+    public static class InetAddress {
+
+        public InetAddress() {
+        }
+    }
     
 }
