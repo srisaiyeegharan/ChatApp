@@ -11,6 +11,7 @@ package chatapp;
  * @author Srisaiyeegharan
  */
 
+import static chatapp.Utility.getStringFromInet;
 import java.net.InetAddress;
 public class MessageProcessor extends Thread  {
    
@@ -38,8 +39,9 @@ public class MessageProcessor extends Thread  {
     
     public void recieveMessage(String pmode, InetAddress pip, String pmessage)
     {
-        
-        
+        String ip;
+        ip = getStringFromInet(pip);
         l.writeRecievedMessage(pmode,ip,pmessage);
     }
+    
 }
