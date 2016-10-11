@@ -28,6 +28,8 @@ import java.util.regex.Pattern;
 public class Discovery extends Thread
 {
     private ArrayList<IP4Address> connectedHosts;
+
+    
     private HashMap<String,InetAddress> groupChatHosts;
     private Host localHost;
     private final String BROADCAST_CODE_MESSAGE="[ONLINE?IFFY]";
@@ -157,6 +159,10 @@ public class Discovery extends Thread
         
         
         
+    }
+    public synchronized HashMap<String, InetAddress> getGroupChatHosts()
+    {
+        return groupChatHosts;
     }
 //    private void checkHosts(IP4Address localAddress) throws Exception
 //    {
