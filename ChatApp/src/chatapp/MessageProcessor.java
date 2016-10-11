@@ -11,13 +11,14 @@ package chatapp;
  * @author Srisaiyeegharan
  */
 
-import static chatapp.Utility.getStringFromInet;
+
 import java.net.InetAddress;
 public class MessageProcessor extends Thread  {
    
     private final int MSG_SEND_PORT = 4002;
     private CommandLine commandLine;
     private Discovery discovery;
+    
     
     MessageProcessor(CommandLine commandl,Discovery dis) {
         
@@ -28,11 +29,21 @@ public class MessageProcessor extends Thread  {
     public void messageProcessorSendAll(String pRecievedMode, String pRecievedMessage)
     {
         
-        
     }
     
     public void messageProcessorSendPm(String pRecievedMode, String pRecievedIp, String pRecievedMessage)
     {
+        InetAddress ip;
+        ip = Utility.getInetAddress(pRecievedIp);
+        StringBuilder builder= new StringBuilder();
+        builder.append("{"+pRecievedMode.toUpperCase()+"=");
+        builder.append(pRecievedMessage+"}");
+        
+        String msgToSend=builder.toString();
+        
+        MessageSendUDP sendMsg= new MessageSendUDP(ip, msgToSend, MSG_SEND_PORT);
+        sendMsg.start();
+       
         
     }
     
@@ -44,8 +55,8 @@ public class MessageProcessor extends Thread  {
     public void recieveMessage(String pmode, InetAddress pip, String pmessage)
     {
         String ip;
-        ip = getStringFromInet(pip);
-        l.writeRecievedMessage(pmode,ip,pmessage);
+        ip = Utility.getStringFromInet(pip);
+        commandLine.writeRecievedMessage(pmode,ip,pmessage);
     }
     
 }
