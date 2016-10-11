@@ -75,7 +75,7 @@ public class CommandLine extends Thread {
        
        if (!"file".equals(connectionArray[0].toLowerCase()))
        {
-            Pattern msgPattern = Pattern.compile(reg);
+            Pattern msgPattern = Pattern.compile(reg);  
             Matcher stringMsg = msgPattern.matcher(pMessage);
              while (stringMsg.find()) {
             message = stringMsg.group();
@@ -117,7 +117,7 @@ public class CommandLine extends Thread {
         stream.println(pMode + " and " + pIp + " and " + pFileName);
         m.messageProcessorSendFile(pMode, pIp, pFileName);
     }
-    public void writeRecievedMessage(String mode, String ip, String message)
+    public synchronized void writeRecievedMessage(String mode, String ip, String message)
     {
        String recievedMessage;
        switch (mode.toLowerCase())
