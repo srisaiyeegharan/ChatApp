@@ -14,15 +14,19 @@ package chatapp;
 import java.net.InetAddress;
 public class MessageProcessor extends Thread  {
    
-    private final int PORT = 4002;
-    CommandLine l = new CommandLine();
+    private final int MSG_SEND_PORT = 4002;
+    private CommandLine commandLine;
+    private Discovery discovery;
     
-    MessageProcessor() {
-     
+    MessageProcessor(CommandLine commandl,Discovery dis) {
+        
+     commandLine=commandl;
+     discovery=dis;
     }
     
     public void messageProcessorSendAll(String pRecievedMode, String pRecievedMessage)
     {
+        
         
     }
     
