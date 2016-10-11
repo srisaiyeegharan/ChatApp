@@ -20,14 +20,14 @@ import java.util.logging.Logger;
  * @author ibi
  */
 public class MessageProcessServer extends Thread{
-    //Message format accepted- {ALL=abcdefgn...}
+    //Message format accepted- {ALL=message...}
     private int port;
+    private MessageProcessor messageProcessor;
     private DatagramSocket socket;
-    public MessageProcessServer()
+    public MessageProcessServer(MessageProcessor pmessageProcessor)
     {
         port=4002;
-        
-        
+        messageProcessor = pmessageProcessor;
     }
     @Override
     public void run() {
@@ -77,6 +77,9 @@ public class MessageProcessServer extends Thread{
                     msgValue=split[1];
                     //call UDPchat with message from all
                     System.out.println("Message from all"+msgValue);
+                    //sending message to the MessageProcessor
+                    messageProcessor.recieveMessage(split[0], recievePacket.getAddress(), msgValue);
+                    
                     
                 }
                     
@@ -86,6 +89,8 @@ public class MessageProcessServer extends Thread{
                     msgValue=split[1];
                     //call UDPchat with message from single person
                     System.out.println("Message from single"+msgValue);
+                    //sending message to the MessageProcessor
+                    messageProcessor.recieveMessage(split[0], recievePacket.getAddress(), msgValue);
                 }
                 else
                     continue;
