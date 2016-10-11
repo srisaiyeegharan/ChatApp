@@ -25,10 +25,27 @@ public class ChatApp
      */
     public static void main(String[] args)
     {
-        ibisTest();
+        srisTest();
+        //ibisTest();
     }
-    
-    static void ibisTest() 
+
+    static void srisTest()
+    {
+        Thread s = new CommandLine();
+        s.start();
+        
+        try
+        {
+            s.join();
+        } catch (InterruptedException ex)
+        {
+            Logger.getLogger(ChatApp.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }
+    static void ibisTest()
+
+
     {
         ServerSocket socket=null;
         
@@ -66,5 +83,5 @@ public class ChatApp
             Logger.getLogger(ChatApp.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
 }

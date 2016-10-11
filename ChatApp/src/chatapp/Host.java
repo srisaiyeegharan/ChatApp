@@ -48,8 +48,7 @@ public class Host
        str=str.substring(1);
        
        return str;
-   }
+   } 
     
-    
-    
+
 }
