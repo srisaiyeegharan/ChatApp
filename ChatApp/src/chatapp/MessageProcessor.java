@@ -43,5 +43,7 @@ public class MessageProcessor extends Thread  {
     public void recieveMessage(String pmode, InetAddress pip, String pmessage)
     {
         
+        
+        l.writeRecievedMessage(pmode,ip,pmessage);
     }
 }

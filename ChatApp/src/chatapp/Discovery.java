@@ -41,7 +41,7 @@ public class Discovery extends Thread
     private final int FILE_TRANSFER_PORT=4009;
     private final String MULTICAST_ADD="239.255.142.99";
     private final long BCAST_INTERVAL=10000;
-    public Discovery()
+    public Discovery(String username)
     {
         connectedHosts= new ArrayList<>();
         groupChatHosts= new HashMap<>();
@@ -49,7 +49,7 @@ public class Discovery extends Thread
         {
             
           //set correct network interface for correct local ip            
-          localHost= new Host(getCorrectLocalIP(), "me");
+          localHost= new Host(getCorrectLocalIP(), username);
             System.out.println(localHost.getHostIP());
         } catch (Exception e)
         {
