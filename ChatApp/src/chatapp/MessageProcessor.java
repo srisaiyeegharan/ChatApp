@@ -25,7 +25,7 @@ public class MessageProcessor extends Thread  {
     MessageProcessor(Discovery dis) {
         
      commandLine=new CommandLine(this);
-     
+     commandLine.start();
      discovery=dis;
     }
     
@@ -42,7 +42,7 @@ public class MessageProcessor extends Thread  {
         }
         
         StringBuilder builder= new StringBuilder();
-        builder.append("{"+pRecievedMessage.toUpperCase()+"=");
+        builder.append("{"+pRecievedMode.toUpperCase()+"=");
         builder.append(pRecievedMessage+"}");
         String msgToSend=builder.toString();
         

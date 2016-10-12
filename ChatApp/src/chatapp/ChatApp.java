@@ -33,6 +33,8 @@ public class ChatApp
         msgproc.start();
         MessageProcessServer msgProcessServer= new MessageProcessServer(msgproc);
         msgProcessServer.start();
+       
+        
         //ibisTest();
     }
 
