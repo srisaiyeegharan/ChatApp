@@ -25,33 +25,40 @@ public class ChatApp
      */
     public static void main(String[] args)
     {
-       srisTest();        
+        Discovery dis = new Discovery("Rofl");
+        dis.start();
+        PeerCommunicationServer com = new PeerCommunicationServer(dis, grpCode);
+        com.start();
+        MessageProcessor msgproc= new MessageProcessor(dis);
+        msgproc.start();
+        MessageProcessServer msgProcessServer= new MessageProcessServer(msgproc);
+        msgProcessServer.start();
         //ibisTest();
     }
 
     static void srisTest()
     {
-        Thread s = new CommandLine();
-        s.start();
-        
-        try
-        {
-            s.join();
-        } catch (InterruptedException ex)
-        {
-            Logger.getLogger(ChatApp.class.getName()).log(Level.SEVERE, null, ex);
-        }
-
-        Thread m = new MessageProcessor();
-        m.start();
-        
-        try
-        {
-            m.join();
-        } catch (InterruptedException ex)
-        {
-            Logger.getLogger(ChatApp.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        Thread s = new CommandLine();
+//        s.start();
+//        
+//        try
+//        {
+//            s.join();
+//        } catch (InterruptedException ex)
+//        {
+//            Logger.getLogger(ChatApp.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//
+//        Thread m = new MessageProcessor();
+//        m.start();
+//        
+//        try
+//        {
+//            m.join();
+//        } catch (InterruptedException ex)
+//        {
+//            Logger.getLogger(ChatApp.class.getName()).log(Level.SEVERE, null, ex);
+//        }
         
     }
     

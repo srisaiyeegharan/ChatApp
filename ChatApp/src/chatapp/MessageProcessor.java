@@ -13,6 +13,8 @@ package chatapp;
 
 
 import java.net.InetAddress;
+import java.util.ArrayList;
+import java.util.HashMap;
 public class MessageProcessor extends Thread  {
    
     private final int MSG_SEND_PORT = 4002;
@@ -20,14 +22,34 @@ public class MessageProcessor extends Thread  {
     private Discovery discovery;
     
     
-    MessageProcessor(CommandLine commandl,Discovery dis) {
+    MessageProcessor(Discovery dis) {
         
-     commandLine=commandl;
+     commandLine=new CommandLine(this);
+     
      discovery=dis;
     }
     
     public void messageProcessorSendAll(String pRecievedMode, String pRecievedMessage)
     {
+        //get all connected hosts
+        HashMap<String,InetAddress> group= discovery.getGroupChatHosts();
+        ArrayList<InetAddress> sendIps=new ArrayList<>();
+        
+        //add hosts to Ip list and send it
+        for(HashMap.Entry<String,InetAddress> entry :group.entrySet())
+        {
+           sendIps.add(entry.getValue());
+        }
+        
+        StringBuilder builder= new StringBuilder();
+        builder.append("{"+pRecievedMessage.toUpperCase()+"=");
+        builder.append(pRecievedMessage+"}");
+        String msgToSend=builder.toString();
+        
+        System.out.println("Sending ");
+        MessageSendUDP sendmsg= new MessageSendUDP(sendIps, msgToSend, MSG_SEND_PORT);
+        
+        sendmsg.start();
         
     }
     
