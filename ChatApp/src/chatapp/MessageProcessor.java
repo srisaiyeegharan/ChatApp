@@ -15,16 +15,22 @@ package chatapp;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.HashMap;
-public class MessageProcessor extends Thread  {
+public class MessageProcessor   {
    
     private final int MSG_SEND_PORT = 4002;
     private CommandLine commandLine;
+    private MessageProcessServer messageProcessServer;
+    private FileProcessor fileProcessor;
     private Discovery discovery;
     
     
     MessageProcessor(Discovery dis) {
         
      commandLine=new CommandLine(this);
+     commandLine.start();
+     messageProcessServer= new MessageProcessServer(this);
+     messageProcessServer.start();
+     fileProcessor= new FileProcessor(this);     
      
      discovery=dis;
     }
@@ -42,7 +48,7 @@ public class MessageProcessor extends Thread  {
         }
         
         StringBuilder builder= new StringBuilder();
-        builder.append("{"+pRecievedMessage.toUpperCase()+"=");
+        builder.append("{"+pRecievedMode.toUpperCase()+"=");
         builder.append(pRecievedMessage+"}");
         String msgToSend=builder.toString();
         
@@ -69,9 +75,14 @@ public class MessageProcessor extends Thread  {
         
     }
     
-    public void messageProcessorSendFile(String pRecievedMode, String pRecievedIp, String pRecievedFileName)
+    public void messageProcessorSendFile(String pSendIP, String pSendFile)
     {
-        
+        fileProcessor.sendFile(Utility.getInetAddress(pSendIP), pSendFile);
+    }
+    
+    public void messageProcessorRecievFile(String IP, String filename)
+    {
+        commandLine.writeRecievedFile(IP, filename);
     }
     
     public void recieveMessage(String pmode, InetAddress pip, String pmessage)
