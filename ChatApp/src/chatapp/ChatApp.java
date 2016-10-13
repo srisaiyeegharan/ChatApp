@@ -30,9 +30,8 @@ public class ChatApp
         PeerCommunicationServer com = new PeerCommunicationServer(dis, grpCode);
         com.start();
         MessageProcessor msgproc= new MessageProcessor(dis);
-        msgproc.start();
-        MessageProcessServer msgProcessServer= new MessageProcessServer(msgproc);
-        msgProcessServer.start();
+        
+        
        
         
         //ibisTest();

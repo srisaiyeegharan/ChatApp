@@ -129,7 +129,7 @@ public class CommandLine extends Thread {
                sendPm(mode,connectionArray[1],messageString);
                break;
            case "file":
-               sendFile(mode, connectionArray[1], connectionArray[2]);
+               sendFile( connectionArray[1], connectionArray[2]);
                break; 
            default:
                stream.println("Invalid Mode");
@@ -148,11 +148,11 @@ public class CommandLine extends Thread {
         stream.println(pMode + " and " + pIp + " and " + pMessage);
         m.messageProcessorSendPm(pMode, pIp, pMessage);
     }
-    public void sendFile(String pMode, String pIp, String pFileName)
+    public void sendFile( String pIp, String pFileName)
     {
         stream.println("Sending a File");
-        stream.println(pMode + " and " + pIp + " and " + pFileName);
-        m.messageProcessorSendFile(pMode, pIp, pFileName);
+        stream.println("File" + " and " + pIp + " and " + pFileName);
+        m.messageProcessorSendFile( pIp, pFileName);
     }
     public synchronized void writeRecievedMessage(String mode, String ip, String message)
     {
