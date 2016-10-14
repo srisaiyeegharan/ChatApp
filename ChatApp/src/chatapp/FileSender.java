@@ -26,6 +26,7 @@ import javax.net.ssl.SSLSocket;
 public class FileSender extends Thread
 {
     private final int FILE_SERVER_PORT=4005;
+    private Socket peerfileServer;
     private InetAddress IP;
     private String fName;
     
@@ -41,13 +42,22 @@ public class FileSender extends Thread
     {
         try
         {
-            Socket peerfileServer=new Socket(IP, FILE_SERVER_PORT);
-            System.out.println("Running Send");
+            peerfileServer=new Socket(IP, FILE_SERVER_PORT);
             
+            System.out.println("Running Send");
+            sendFile(peerfileServer);
         } catch (IOException ex)
         {
             System.out.println("Error creating socket!");
             Logger.getLogger(FileSender.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        finally
+        {
+            if(peerfileServer!=null)try {
+                peerfileServer.close();
+            } catch (IOException ex) {
+                Logger.getLogger(FileSender.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
     
@@ -57,11 +67,7 @@ public class FileSender extends Thread
         DataOutputStream dos= null;
         FileInputStream fis=null;
         
-        //send filename to be sent
-        dos= new DataOutputStream(fileServer.getOutputStream());
-        System.out.println("Send File"+IP+"name"+fName);
-        dos.writeUTF(fName);
-        
+                
         //open file
         File sendFile= new File(fName);
         if(!sendFile.exists())
@@ -69,6 +75,13 @@ public class FileSender extends Thread
             System.out.println("File not found");
            throw new FileNotFoundException(fName+"not found");
         }
+        
+        //send filename to be sent
+        dos= new DataOutputStream(fileServer.getOutputStream());
+        System.out.println("Send File"+IP+"name"+fName);
+        dos.writeUTF(fName);
+        
+        
         
         //start writing the file accross the stream
         fis= new FileInputStream(sendFile);
@@ -82,13 +95,13 @@ public class FileSender extends Thread
             }
         dos.flush();
         
-        dis=new DataInputStream(fileServer.getInputStream());
-        String response=dis.readUTF();
+        
+        System.out.println("complete transfer");
         
         //send to chat app file sent
         
         //close sockets
-        
+       
         
     }
     

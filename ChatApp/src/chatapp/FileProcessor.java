@@ -27,6 +27,7 @@ public class FileProcessor
         FileSender sender= new FileSender(ip, filename);
         System.out.println("Reached sendFile" + ip + filename);
         sender.start();
+        
     }
     
     public void recievedFile(InetAddress ip,String filename)
