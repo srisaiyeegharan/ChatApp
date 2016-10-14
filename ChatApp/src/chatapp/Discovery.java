@@ -68,14 +68,15 @@ public class Discovery extends Thread
         {
             int count=0;
             
-            while(count<2)
+            while(count <2 )
             {
                 count++;
                 discoverHost();
                 Thread.sleep(BCAST_INTERVAL);
                 
             }
-            Thread.sleep(100000);
+            Thread.sleep(10000000);
+            
         }
         catch(InterruptedException i)
         {
