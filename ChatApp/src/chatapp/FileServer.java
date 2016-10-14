@@ -7,6 +7,7 @@ package chatapp;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.ServerSocket;
@@ -23,7 +24,7 @@ public class FileServer extends Thread
     private final int FILE_SERVER_PORT=4005;
     private ServerSocket socket;
     private FileProcessor fProcess;
-    private final String FILE_RECIEVE_lOCATION="/FilesRecieved";
+    private final String FILE_RECIEVE_lOCATION="FilesRecieved/";
     
     public FileServer(FileProcessor processor)
     {
@@ -68,24 +69,26 @@ public class FileServer extends Thread
             String fileToRecieve=dis.readUTF();
             if(!fileToRecieve.equals(""))
             {
-                fos= new FileOutputStream(FILE_RECIEVE_lOCATION+fileToRecieve);
+                File file = new File(FILE_RECIEVE_lOCATION+fileToRecieve);
+                file.getParentFile().mkdirs();
+                fos= new FileOutputStream(file);
 
                 //start reading bytes into file
                 int bytesRead=0;
                 byte[] buffer= new byte[1024];
                 while((bytesRead=dis.read(buffer))!=-1)
                 {
+                    
                  fos.write(buffer,0,bytesRead);
                 }
-
+                  
                 //send confirmation
-                dos=new DataOutputStream(clienSocket.getOutputStream());
-                dos.writeUTF("Transfer=True");
-
-                //send result to chatapp 
+                
+                //to chatapp 
+                fProcess.recievedFile(clienSocket.getInetAddress(), fileToRecieve);
             }
             
-            
+            fos.close();
             //close clientsocket
             clienSocket.close();
         }

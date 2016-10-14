@@ -77,6 +77,7 @@ public class MessageProcessor  extends Thread{
     public void messageProcessorSendFile(String pSendIP, String pSendFile)
     {
         System.out.println("Reached messageProcessorSendFile "+pSendIP+pSendFile);
+        
         fileProcessor.sendFile(Utility.getInetAddress(pSendIP), pSendFile);
     }
     

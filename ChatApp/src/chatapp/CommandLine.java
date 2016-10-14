@@ -52,11 +52,9 @@ public class CommandLine extends Thread {
         //scanner moves down after returning the current line.
         String line = input.nextLine();
         //passing the read String to stripMessage method
-<<<<<<< HEAD
-        stripMessage("<ALL>Hello how are you");
-=======
-        stripMessage("<FILE,136.186.14.88,test.jpg>");
->>>>>>> refs/remotes/origin/master
+
+        stripMessage("<FILE,136.186.14.87,test.png>");
+
         }
         
     }
@@ -175,6 +173,7 @@ public class CommandLine extends Thread {
     }
     public void writeRecievedFile(String ip, String file)
     {
-        stream.println("Recieving a File");
+        stream.println("File Reciept");
+        stream.println("Recieving File:"+file+" from "+ip);
     }
 }
