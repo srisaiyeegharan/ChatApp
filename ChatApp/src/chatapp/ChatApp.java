@@ -30,6 +30,7 @@ public class ChatApp
         PeerCommunicationServer com = new PeerCommunicationServer(dis, grpCode);
         com.start();
         MessageProcessor msgproc= new MessageProcessor(dis);
+       
         
         
        

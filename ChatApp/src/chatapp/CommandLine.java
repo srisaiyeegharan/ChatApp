@@ -52,7 +52,7 @@ public class CommandLine extends Thread {
         //scanner moves down after returning the current line.
         String line = input.nextLine();
         //passing the read String to stripMessage method
-        stripMessage("<PM,136.186.14.84>Hello Peer How are you");
+        stripMessage("<ALL>Hello how are you");
         }
         
     }
