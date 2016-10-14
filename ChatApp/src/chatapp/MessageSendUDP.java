@@ -75,7 +75,7 @@ public class MessageSendUDP extends Thread
         //get bytes from string and send packet
         buff=msg.getBytes();
         String st= new String(buff);
-        System.out.println("Buffer"+st);
+        System.out.println("Send Buffer"+st);
         for(InetAddress ip :ips)
         {
             packet= new DatagramPacket(buff,buff.length,ip,port);

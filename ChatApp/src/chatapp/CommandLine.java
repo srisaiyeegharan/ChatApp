@@ -35,7 +35,7 @@ public class CommandLine extends Thread {
         stream.println("Welcome to Chat Messages");  
         //Testing purpose
         String sendAllMessage = "<ALL>Hello how are you";
-        String sendPeerMessage = "<PM,192.168.45.1>Hello Peer How are you";
+        String sendPeerMessage = "<PM,136.186.14.85>Hello Peer How are you";
         String sendPeerFile = "<FILE,192.168.45.1,sri.jpg>";
         //Calling the userInput method
         userInput();
@@ -46,12 +46,15 @@ public class CommandLine extends Thread {
     //Takes in the user input from command line 
     public void userInput()
     {
-        
-        Scanner input = new Scanner(System.in);
+        while(true)
+        {
+            Scanner input = new Scanner(System.in);
         //scanner moves down after returning the current line.
         String line = input.nextLine();
         //passing the read String to stripMessage method
-        stripMessage(line);
+        stripMessage("<PM,136.186.14.84>Hello Peer How are you");
+        }
+        
     }
     
     public void stripMessage(String pMessage)
@@ -83,7 +86,7 @@ public class CommandLine extends Thread {
        //getting rid of ">" from the string 
        String connectionString = conString.replace(">", "");
        //printing the string to console
-       stream.println(connectionString);
+       stream.println("Stripped"+connectionString);
        
        //ConnectionArray is a string array which contains 
        //the details from user input which has the mode,ip and filename
@@ -117,7 +120,7 @@ public class CommandLine extends Thread {
        }
       
        //switch to call methods based on the mode from user input
-       switch (mode)
+       switch (mode.toLowerCase())
        {
            case "all":
                sendAll(mode,messageString);
@@ -126,8 +129,10 @@ public class CommandLine extends Thread {
                sendPm(mode,connectionArray[1],messageString);
                break;
            case "file":
-               sendFile(mode, connectionArray[1], connectionArray[2]);
-               break;    
+               sendFile( connectionArray[1], connectionArray[2]);
+               break; 
+           default:
+               stream.println("Invalid Mode");
        }
     }   
     
@@ -143,11 +148,11 @@ public class CommandLine extends Thread {
         stream.println(pMode + " and " + pIp + " and " + pMessage);
         m.messageProcessorSendPm(pMode, pIp, pMessage);
     }
-    public void sendFile(String pMode, String pIp, String pFileName)
+    public void sendFile( String pIp, String pFileName)
     {
         stream.println("Sending a File");
-        stream.println(pMode + " and " + pIp + " and " + pFileName);
-        m.messageProcessorSendFile(pMode, pIp, pFileName);
+        stream.println("File" + " and " + pIp + " and " + pFileName);
+        m.messageProcessorSendFile( pIp, pFileName);
     }
     public synchronized void writeRecievedMessage(String mode, String ip, String message)
     {
