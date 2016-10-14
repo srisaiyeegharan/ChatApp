@@ -52,7 +52,11 @@ public class CommandLine extends Thread {
         //scanner moves down after returning the current line.
         String line = input.nextLine();
         //passing the read String to stripMessage method
+<<<<<<< HEAD
         stripMessage("<ALL>Hello how are you");
+=======
+        stripMessage("<FILE,136.186.14.88,test.jpg>");
+>>>>>>> refs/remotes/origin/master
         }
         
     }

@@ -20,7 +20,7 @@ import java.util.logging.Logger;
  */
 public class FileServer extends Thread
 {
-    private final int FILE_SERVER_PORT=4009;
+    private final int FILE_SERVER_PORT=4005;
     private ServerSocket socket;
     private FileProcessor fProcess;
     private final String FILE_RECIEVE_lOCATION="/FilesRecieved";

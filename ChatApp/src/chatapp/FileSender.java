@@ -25,9 +25,10 @@ import javax.net.ssl.SSLSocket;
  */
 public class FileSender extends Thread
 {
-    private final int FILE_SERVER_PORT=4009;
+    private final int FILE_SERVER_PORT=4005;
     private InetAddress IP;
     private String fName;
+    
     
     public FileSender(InetAddress sendIP,String filename)
     {
@@ -41,9 +42,11 @@ public class FileSender extends Thread
         try
         {
             Socket peerfileServer=new Socket(IP, FILE_SERVER_PORT);
+            System.out.println("Running Send");
             
         } catch (IOException ex)
         {
+            System.out.println("Error creating socket!");
             Logger.getLogger(FileSender.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -56,12 +59,14 @@ public class FileSender extends Thread
         
         //send filename to be sent
         dos= new DataOutputStream(fileServer.getOutputStream());
+        System.out.println("Send File"+IP+"name"+fName);
         dos.writeUTF(fName);
         
         //open file
         File sendFile= new File(fName);
         if(!sendFile.exists())
         {
+            System.out.println("File not found");
            throw new FileNotFoundException(fName+"not found");
         }
         
@@ -81,6 +86,8 @@ public class FileSender extends Thread
         String response=dis.readUTF();
         
         //send to chat app file sent
+        
+        //close sockets
         
         
     }
