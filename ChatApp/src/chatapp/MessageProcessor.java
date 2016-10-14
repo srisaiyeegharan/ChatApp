@@ -15,7 +15,7 @@ package chatapp;
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.HashMap;
-public class MessageProcessor   {
+public class MessageProcessor  extends Thread{
    
     private final int MSG_SEND_PORT = 4002;
     private CommandLine commandLine;
@@ -24,14 +24,13 @@ public class MessageProcessor   {
     private Discovery discovery;
     
     
-    MessageProcessor(Discovery dis) {
+    MessageProcessor(Discovery dis)  {
         
      commandLine=new CommandLine(this);
      commandLine.start();
      messageProcessServer= new MessageProcessServer(this);
      messageProcessServer.start();
-     fileProcessor= new FileProcessor(this);     
-     
+     fileProcessor= new FileProcessor(this);  
      discovery=dis;
     }
     
@@ -77,6 +76,7 @@ public class MessageProcessor   {
     
     public void messageProcessorSendFile(String pSendIP, String pSendFile)
     {
+        System.out.println("Reached messageProcessorSendFile "+pSendIP+pSendFile);
         fileProcessor.sendFile(Utility.getInetAddress(pSendIP), pSendFile);
     }
     
