@@ -22,6 +22,11 @@ public class FileProcessor
         this.msgProcessor=msgProcessor;
     }
 
+    public void terminate() throws InterruptedException 
+    {
+        server.terminate();
+        server.join();
+    }
     public void sendFile(InetAddress ip,String filename)
     {
         FileSender sender= new FileSender(ip, filename);

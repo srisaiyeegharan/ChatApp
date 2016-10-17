@@ -30,7 +30,7 @@ public class Discovery extends Thread
     private ArrayList<IP4Address> connectedHosts;
 
     
-    private HashMap<String,InetAddress> groupChatHosts;
+    private HashMap<InetAddress,String> groupChatHosts;
     private Host localHost;
     private final String BROADCAST_CODE_MESSAGE="[ONLINE?IFFY]";
     private final int COM_PORT=4003;
@@ -43,6 +43,7 @@ public class Discovery extends Thread
     private final int FILE_TRANSFER_PORT=4009;
     private final String MULTICAST_ADD="239.255.142.99";
     private final long BCAST_INTERVAL=10000;
+    private volatile boolean running=true;
     public Discovery(String username)
     {
         connectedHosts= new ArrayList<>();
@@ -60,22 +61,26 @@ public class Discovery extends Thread
         }
         
     }
+    public void terminate()
+    {
+        running=false;
+    }
 
     @Override
     public void run()
     {
         try
         {
-            int count=0;
             
-            while(count <2 )
+            
+            while(running )
             {
-                count++;
+                
                 discoverHost();
                 Thread.sleep(BCAST_INTERVAL);
                 
             }
-            Thread.sleep(10000000);
+            System.out.println("Discovery exiting");
             
         }
         catch(InterruptedException i)
@@ -147,13 +152,20 @@ public class Discovery extends Thread
     public synchronized void addToChatGroup(String hostname,InetAddress address)
     {
         //TO DO updating the host lists for ARE U ONLINE confirmation
-        if(!groupChatHosts.containsKey(hostname))
+        if(!groupChatHosts.containsKey(address))
         {
-            groupChatHosts.put(hostname, address);
+            groupChatHosts.put(address,hostname);
             System.out.println(hostname+" Added with ip "+address);
         }
     }
     
+    public synchronized void removeFromChatGroup(InetAddress hostIP)
+    {
+        if(groupChatHosts.containsKey(hostIP))
+        {
+            groupChatHosts.remove(hostIP);
+        }
+    }
     private void broadcastCode() throws UnknownHostException
     {
         System.out.println("broadcasting code");
@@ -165,7 +177,7 @@ public class Discovery extends Thread
         
         
     }
-    public synchronized HashMap<String, InetAddress> getGroupChatHosts()
+    public synchronized HashMap<InetAddress,String> getGroupChatHosts()
     {
         return groupChatHosts;
     }

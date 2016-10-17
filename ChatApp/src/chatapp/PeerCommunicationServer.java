@@ -11,6 +11,7 @@ import java.net.DatagramSocket;
 import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.MulticastSocket;
+import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,13 +26,24 @@ public class PeerCommunicationServer extends Thread
     private Discovery discoveryThread;
     private final String MULTICAST_ADD="239.255.142.99";
     private String grpCode;
-
+     private volatile boolean running=true;
     
     public PeerCommunicationServer(Discovery discovery,String grpCode)
     {
        port=4003;
        discoveryThread=discovery;
        this.grpCode =grpCode;
+    }
+
+    public synchronized void terminate()
+    {
+        running=false;
+        try {
+            multsocket.leaveGroup(InetAddress.getByName(MULTICAST_ADD));
+            multsocket.close();
+        } catch (Exception ex) {
+            Logger.getLogger(PeerCommunicationServer.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
@@ -53,12 +65,13 @@ public class PeerCommunicationServer extends Thread
             if(multsocket!=null)
                 multsocket.close();
         }
+        System.out.println("Peer Comm exiting");
     }
     
     public void startListening(MulticastSocket socket) throws IOException
     {
         DatagramPacket recievePacket;
-        while(true)
+        while(running)
         {
             
             byte[] buff= new byte[1024];
