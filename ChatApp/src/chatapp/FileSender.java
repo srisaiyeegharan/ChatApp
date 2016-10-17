@@ -48,7 +48,7 @@ public class FileSender extends Thread
             sendFile(peerfileServer);
         } catch (IOException ex)
         {
-            System.out.println("Error creating socket!");
+            System.out.println("Error sending file!");
             Logger.getLogger(FileSender.class.getName()).log(Level.SEVERE, null, ex);
         }
         finally

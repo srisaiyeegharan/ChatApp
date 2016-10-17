@@ -28,20 +28,16 @@ public class ChatApp
     {
         
        
-        Discovery dis = new Discovery("Srisaiyeegharan");
-        dis.start();
-        PeerCommunicationServer com = new PeerCommunicationServer(dis, grpCode);
-        com.start();
-        MessageProcessor msgproc= new MessageProcessor(dis);
-
+       String username="Ibrahim";
+        MessageProcessor msgproc= new MessageProcessor(username,grpCode);
         msgproc.start();
 
-       
-        
-        
-       
-        
-        //ibisTest();
+        try {
+            msgproc.join();           
+            //ibisTest();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(ChatApp.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     static void srisTest()
