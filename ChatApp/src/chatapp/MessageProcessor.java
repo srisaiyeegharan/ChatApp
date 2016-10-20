@@ -111,7 +111,7 @@ public class MessageProcessor  extends Thread{
         builder.append(pRecievedMessage+"}");
         String msgToSend=builder.toString();
         
-        System.out.println("Sending ");
+        ChatApp.logger.info("Sending ");
         MessageSendUDP sendmsg= new MessageSendUDP(sendIps, msgToSend, MSG_SEND_PORT);
         
         sendmsg.start();
@@ -136,7 +136,7 @@ public class MessageProcessor  extends Thread{
     
     public void messageProcessorSendFile(String pSendIP, String pSendFile)
     {
-        System.out.println("Reached messageProcessorSendFile "+pSendIP+pSendFile);
+        ChatApp.logger.info("Reached messageProcessorSendFile "+pSendIP+pSendFile);
         
         fileProcessor.sendFile(Utility.getInetAddress(pSendIP), pSendFile);
     }

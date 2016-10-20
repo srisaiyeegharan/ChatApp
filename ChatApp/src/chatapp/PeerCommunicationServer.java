@@ -16,7 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *This port is used for communication between hosts
+ *This Thread is used for communication between hosts
  * @author aussi
  */
 public class PeerCommunicationServer extends Thread
@@ -28,6 +28,11 @@ public class PeerCommunicationServer extends Thread
     private String grpCode;
      private volatile boolean running=true;
     
+    /**
+     * Create new Instance of PeerCommunicationServer
+     * @param discovery discovery thread
+     * @param grpCode the group code used by hosts
+     */
     public PeerCommunicationServer(Discovery discovery,String grpCode)
     {
        port=4003;
@@ -35,6 +40,9 @@ public class PeerCommunicationServer extends Thread
        this.grpCode =grpCode;
     }
 
+    /**
+     * Terminate Thread safely
+     */
     public synchronized void terminate()
     {
         running=false;
@@ -46,6 +54,11 @@ public class PeerCommunicationServer extends Thread
         }
     }
 
+    /**
+     * Start running the Thread <br/>
+     * Creates multi socket and joins group<br/>
+     * Start listening on socket
+     */
     @Override
     public void run()
     {
@@ -65,9 +78,14 @@ public class PeerCommunicationServer extends Thread
             if(multsocket!=null)
                 multsocket.close();
         }
-        System.out.println("Peer Comm exiting");
+        ChatApp.logger.info("Peer Comm exiting");
     }
     
+    /**
+     * Start Listening on socket
+     * @param socket
+     * @throws IOException
+     */
     public void startListening(MulticastSocket socket) throws IOException
     {
         DatagramPacket recievePacket;
@@ -78,11 +96,11 @@ public class PeerCommunicationServer extends Thread
             recievePacket=new DatagramPacket(buff,buff.length);
             socket.receive(recievePacket);
             //recieving communication data
-            System.out.println("recieving packet");
+            ChatApp.logger.info("recieving packet");
             String command = new String(recievePacket.getData());
             //santize command
             command=command.trim();
-            System.out.println("Data rec from IP:"+recievePacket.getAddress()+"data"+command);
+            ChatApp.logger.info("Data rec from IP:"+recievePacket.getAddress()+"data"+command);
 
             //validate and extract command from packet data
             if(!command.matches("\\[.+\\]"))
@@ -128,7 +146,7 @@ public class PeerCommunicationServer extends Thread
                 String hostname=value;
                 InetAddress add=recievePacket.getAddress();
                 discoveryThread.addToChatGroup(hostname, add);
-                System.out.println("Host Added to list");
+               
                 
                 
             }

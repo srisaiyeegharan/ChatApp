@@ -9,14 +9,10 @@ import java.net.SocketException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 
 /**
- *
+ * Thread which processes incoming UDP messages
  * @author ibi
  */
 public class MessageProcessServer extends Thread{
@@ -26,16 +22,29 @@ public class MessageProcessServer extends Thread{
     private DatagramSocket socket;
     private final String BYE_MESSAGE="*BYE*";
     private volatile boolean running=true;
+
+    /**
+     * Create instance of this server to start processing messages
+     * @param pmessageProcessor
+     */
     public MessageProcessServer(MessageProcessor pmessageProcessor)
     {
         port=4002;
         messageProcessor = pmessageProcessor;
     }
+
+    /**
+     * Terminate this thread safely
+     */
     public synchronized void terminate()
     {
         running=false;
         socket.close();
     }
+
+    /**
+     * Start running the Thread
+     */
     @Override
     public void run() {
         try {
@@ -48,9 +57,14 @@ public class MessageProcessServer extends Thread{
         {
             socket.close();
         }
-        System.out.println("Message Process Server exiting");
+        ChatApp.logger.info("Message Process Server exiting");
     }
     
+    /**
+     * Start listening for incoming UDP messages on this socket
+     * @param socket
+     * @throws IOException
+     */
     public void startListening(DatagramSocket socket) throws IOException
     {
         DatagramPacket recievePacket;
@@ -61,11 +75,11 @@ public class MessageProcessServer extends Thread{
             socket.receive(recievePacket);
             
             //recieving message data
-            System.out.println("recieving Message packet");
+            ChatApp.logger.info("recieving Message packet");
             String message = new String(recievePacket.getData());
             //santize message
             message=message.trim();
-            System.out.println("Message Data rec from IP:"+recievePacket.getAddress()+"data"+message);
+            ChatApp.logger.info("Message Data rec from IP:"+recievePacket.getAddress()+"data"+message);
             
             //validate and extract message from packet data
             if(!message.matches("\\{.+\\}"))
@@ -84,12 +98,12 @@ public class MessageProcessServer extends Thread{
                     //message to all
                     msgValue=split[1];
                     //call UDPchat with message from all
-                    System.out.println("Message from all"+msgValue);
+                    ChatApp.logger.info("Message from all"+msgValue);
                     
                     //check if its a BYE message
                     if(msgValue.equals(BYE_MESSAGE))
                     {
-                        System.out.println("Host Removed "+recievePacket.getAddress());
+                        ChatApp.logger.info("Host Removed "+recievePacket.getAddress());
                         messageProcessor.removeHost(recievePacket.getAddress());
                     }
                     else
@@ -104,7 +118,7 @@ public class MessageProcessServer extends Thread{
                     //message from single person
                     msgValue=split[1];
                     //call UDPchat with message from single person
-                    System.out.println("Message from single"+msgValue);
+                    ChatApp.logger.info("Message from single"+msgValue);
                        //sending message to the MessageProcessor
                     messageProcessor.recieveMessage(split[0], recievePacket.getAddress(), msgValue);
                 }

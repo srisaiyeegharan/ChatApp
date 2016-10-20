@@ -16,21 +16,29 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * A Thread to run File Server
  * @author aussi
  */
 public class FileServer extends Thread
 {
-    private final int FILE_SERVER_PORT=4005;
+    private final int FILE_SERVER_PORT=4004;
     private ServerSocket socket;
     private FileProcessor fProcess;
     private final String FILE_RECIEVE_lOCATION="FilesRecieved/";
-    private volatile boolean running=true; 
+    private volatile boolean running=true;
+    /**
+     * Creates an instance of File Server
+     * @param processor FileProcessor caller
+     */
     public FileServer(FileProcessor processor)
     {
         socket=null;
         fProcess=processor;
     }
+
+    /**
+     * terminate the File Server Thread
+     */
     public synchronized void terminate()
     {
         running=false;
@@ -40,6 +48,10 @@ public class FileServer extends Thread
             Logger.getLogger(FileServer.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    /**
+     * Start running the thread
+     */
     @Override
     public void run()
     {
@@ -59,9 +71,13 @@ public class FileServer extends Thread
                 Logger.getLogger(FileServer.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-        System.out.println("File Server exiting");
+        ChatApp.logger.info("File Server exiting");
     }
     
+    /**
+     * Start lIstening for file connections on socket
+     * @param socket
+     */
     public void startListening(ServerSocket socket) 
     {
         while (running)
