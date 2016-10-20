@@ -10,33 +10,40 @@ import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.net.ssl.SSLSocket;
 
 /**
- *
+ * Thread to Send Files sent by user
  * @author aussi
  */
 public class FileSender extends Thread
 {
-    private final int FILE_SERVER_PORT=4005;
+    private final int FILE_SERVER_PORT=4004;
     private Socket peerfileServer;
     private InetAddress IP;
     private String fName;
     
-    
+    /**
+     *Create instance of file sender Thread
+     * <br/>
+     * 
+     * @param sendIP IP to send to
+     * @param filename file name
+     */
     public FileSender(InetAddress sendIP,String filename)
     {
         IP=sendIP;
         fName=filename;
     }
 
+    /**
+     * Start running Thread
+     */
     @Override
     public void run()
     {
@@ -44,11 +51,11 @@ public class FileSender extends Thread
         {
             peerfileServer=new Socket(IP, FILE_SERVER_PORT);
             
-            System.out.println("Running Send");
+            ChatApp.logger.info("Running Send");
             sendFile(peerfileServer);
         } catch (IOException ex)
         {
-            System.out.println("Error sending file!");
+            ChatApp.logger.info("Error sending file!");
             Logger.getLogger(FileSender.class.getName()).log(Level.SEVERE, null, ex);
         }
         finally
@@ -61,6 +68,11 @@ public class FileSender extends Thread
         }
     }
     
+    /**
+     * Send file on specified socket
+     * @param fileServer
+     * @throws IOException
+     */
     public void sendFile(Socket fileServer) throws IOException
     {
         DataInputStream dis= null;
@@ -78,7 +90,7 @@ public class FileSender extends Thread
         
         //send filename to be sent
         dos= new DataOutputStream(fileServer.getOutputStream());
-        System.out.println("Send File"+IP+"name"+fName);
+        ChatApp.logger.info("Send File"+IP+"name"+fName);
         dos.writeUTF(fName);
         
         
@@ -96,7 +108,7 @@ public class FileSender extends Thread
         dos.flush();
         
         
-        System.out.println("complete transfer");
+        System.out.println("Transfer Complete");
         
         //send to chat app file sent
         

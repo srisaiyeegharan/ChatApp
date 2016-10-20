@@ -16,7 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
+ * Thread to send a UDP Message
  * @author aussi
  */
 public class MessageSendUDP extends Thread
@@ -24,6 +24,13 @@ public class MessageSendUDP extends Thread
     private ArrayList<InetAddress> ips;
     private String msg;
     private int port;
+
+    /**
+     * Create a new Instance of this Thread to send a Message
+     * @param IPAddress IP Address to send to
+     * @param message Message to send
+     * @param port Port to send to
+     */
     public MessageSendUDP(InetAddress IPAddress,String message,int port)
     {
         ips= new ArrayList<>();
@@ -32,6 +39,12 @@ public class MessageSendUDP extends Thread
        this.port=port;
     }
     
+    /**
+     * Create a new Instance of this Thread to send a Message
+     * @param ipAddresses
+     * @param message
+     * @param port
+     */
     public MessageSendUDP(ArrayList<InetAddress> ipAddresses ,String message,int port)
     {
         ips= new ArrayList<>();
@@ -44,6 +57,9 @@ public class MessageSendUDP extends Thread
         }
     }
 
+    /**
+     * Start running this Thread
+     */
     @Override
     public void run()
     {
@@ -66,6 +82,12 @@ public class MessageSendUDP extends Thread
         }
     }
     
+    /**
+     * Send Packet through specified socket
+     * @param socket
+     * @throws SocketException
+     * @throws IOException
+     */
     public void sendPacket(DatagramSocket socket) throws SocketException, IOException 
     {
         //send message using datagram
@@ -75,14 +97,14 @@ public class MessageSendUDP extends Thread
         //get bytes from string and send packet
         buff=msg.getBytes();
         String st= new String(buff);
-        System.out.println("Send Buffer"+st);
+        ChatApp.logger.info("Send Buffer"+st);
         for(InetAddress ip :ips)
         {
             packet= new DatagramPacket(buff,buff.length,ip,port);
 
             socket.send(packet);
 
-            System.out.println("Packet Sent:"+packet.getData());
+            ChatApp.logger.info("Packet Sent:"+packet.getData());
             Logger.getLogger(MessageSendUDP.class.getName()).log(Level.FINE, msg+"sent in packet");
         }
         

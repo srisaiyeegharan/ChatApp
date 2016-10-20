@@ -44,6 +44,7 @@ public class CommandLine extends Thread {
         String sendPeerFile = "Send <FILE,192.168.45.1,sri.jpg>";
         String getIPS="View <IPs>";
         String quit="Quit<>";
+        String viewCommands="View <Commands>";
         //Calling the userInput method
         userInput();
         
@@ -60,7 +61,7 @@ public class CommandLine extends Thread {
         //scanner moves down after returning the current line.
         String line = input.nextLine();
         //passing the read String to stripMessage method
-        line="Quit<>";
+        
         //extract command  prefix
         String prefix =extractCmdPrefix(line);
         if(prefix.equals(""))
@@ -76,8 +77,8 @@ public class CommandLine extends Thread {
         String command=line.replace(prefix, "");
         
         
-            System.out.println("command to execute "+command);
-            System.out.println("prefix "+prefix);
+            ChatApp.logger.info("command to execute "+command);
+            ChatApp.logger.info("prefix "+prefix);
         
         switch(prefix.toLowerCase().trim())
         {
@@ -98,7 +99,7 @@ public class CommandLine extends Thread {
         //stripViewCmd("<IPs>");
 
         }
-        System.out.println("Command Line exiting");
+        ChatApp.logger.info("Command Line exiting");
         
     }
     
@@ -118,12 +119,16 @@ public class CommandLine extends Thread {
             String members=msgProcsr.getGroupChatMembers();
             stream.println(members);
         }
+        else if(checkedString.toLowerCase().equals("commands"))
+        {
+            showCommands();
+        }
         
     }
     public void stripSendCmd(String pMessage)
     { 
         pMessage=pMessage.trim();
-       stream.println("Lets Strip the Send Message");
+       ChatApp.logger.info("Lets Strip the Send Message");
       //check command matches format and process it
        String connectionString=stripCmd(pMessage);
        if(connectionString.equals(""))
@@ -163,7 +168,7 @@ public class CommandLine extends Thread {
              while (stringMsg.find())
              {
             message = stringMsg.group();
-            stream.println(message);
+            ChatApp.logger.info(message);
          }
             messageString = message.replace(">", "");
            
@@ -199,7 +204,7 @@ public class CommandLine extends Thread {
            //finding the string based on given regex
             con = connection.group();
             //prints the found string to console
-            stream.println(con);
+            ChatApp.logger.info(con);
         }
        if(con==null || con.equals(""))
        {
@@ -210,7 +215,7 @@ public class CommandLine extends Thread {
        //getting rid of ">" from the string 
        String connectionString = conString.replace(">", "");
        //printing the string to console
-       stream.println("Stripped "+connectionString); 
+       ChatApp.logger.info("Stripped "+connectionString); 
        
        return connectionString;
     }
@@ -229,7 +234,7 @@ public class CommandLine extends Thread {
            //finding the string based on given regex
             con = connection.group();
             //prints the found string to console
-            stream.println("extracted"+con);
+            ChatApp.logger.info("extracted"+con);
             break;
         }
        if(con==null || con.equals(""))
@@ -240,6 +245,19 @@ public class CommandLine extends Thread {
        return con;
     }
     
+    private void showCommands()
+    {
+        stream.println("Commands supported");
+        StringBuilder builder= new StringBuilder();
+        builder.append("Send <ALL>Hello how are you   -Send Message to All in Group\n");
+        builder.append("Send <PM,136.186.14.88>Hello Peer How are you   -Send Message to a single host\n");
+        builder.append("Send <FILE,192.168.45.1,sri.jpg>   -Send File to a single host\n");
+        builder.append("View <IPs>   -View all IPs and names connected\n");
+        builder.append("Quit <>   -Quit Application\n");
+        builder.append("View <Commands>   -View all commands supported\n");
+        stream.println(builder.toString());
+        
+    }
     
     public void quitApp()
     {
@@ -289,4 +307,6 @@ public class CommandLine extends Thread {
         stream.println("File Reciept");
         stream.println("Recieving File:"+file+" from "+ip);
     }
+
+   
 }

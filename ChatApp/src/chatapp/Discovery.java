@@ -53,7 +53,7 @@ public class Discovery extends Thread
             
           //set correct network interface for correct local ip            
           localHost= new Host(getCorrectLocalIP(), username);
-            System.out.println(localHost.getHostIP());
+           
         } catch (Exception e)
         {
             System.err.println("Error Getting LocalHost");
@@ -80,7 +80,7 @@ public class Discovery extends Thread
                 Thread.sleep(BCAST_INTERVAL);
                 
             }
-            System.out.println("Discovery exiting");
+            ChatApp.logger.info("Discovery exiting");
             
         }
         catch(InterruptedException i)
@@ -111,14 +111,14 @@ public class Discovery extends Thread
                 if(name.contains("Virtual") )
                     continue;
                 
-                System.out.println(name);
+                ChatApp.logger.info(name);
                 //iterate through IPs
                 for(InetAddress address :Collections.list(netint.getInetAddresses()))
                 {
                     if(!(address instanceof Inet4Address))
                         continue;
                     //return a valid IP
-                    System.out.println(address);
+                    ChatApp.logger.info(Utility.getStringFromInet(address));
                     return (Inet4Address)address;
                 }
             }
@@ -144,7 +144,7 @@ public class Discovery extends Thread
         
         
         broadcastCode();
-        System.out.println(groupChatHosts.toString());
+        ChatApp.logger.info(groupChatHosts.toString());
         
         //TO DO- Send ARE YOU ONLINE REQUEST to all connected hosts
         
@@ -155,7 +155,7 @@ public class Discovery extends Thread
         if(!groupChatHosts.containsKey(address))
         {
             groupChatHosts.put(address,hostname);
-            System.out.println(hostname+" Added with ip "+address);
+            ChatApp.logger.info(hostname+" Added with ip "+address);
         }
     }
     
@@ -168,7 +168,7 @@ public class Discovery extends Thread
     }
     private void broadcastCode() throws UnknownHostException
     {
-        System.out.println("broadcasting code");
+        ChatApp.logger.info("broadcasting code");
         //Multicast UDP packet to all hosts in subnet on port 4003
         Inet4Address broadcAddress=(Inet4Address) Inet4Address.getByName(MULTICAST_ADD);
         Thread t= new MessageSendUDP(broadcAddress, BROADCAST_CODE_MESSAGE, COM_PORT);
@@ -193,11 +193,11 @@ public class Discovery extends Thread
 //            {
 //              //get next host to ping
 //              nextAdd=nextAdd.next(); 
-//                System.out.println("pingig"+nextAdd.toString());
+//                ChatApp.logger.info("pingig"+nextAdd.toString());
 //              if(pingHostApplication(nextAdd))
 //              {
 //                  connectedHosts.add(nextAdd);
-//                  System.out.println(nextAdd.toString()+"Reachable");
+//                  ChatApp.logger.info(nextAdd.toString()+"Reachable");
 //              }
 //                
 //            }
@@ -206,20 +206,20 @@ public class Discovery extends Thread
 //            {
 //                //get previous host
 //                previousAdd=previousAdd.previous();
-//                System.out.println("pingig"+previousAdd.toString());
+//                ChatApp.logger.info("pingig"+previousAdd.toString());
 //                if(pingHostApplication(previousAdd))
 //                {
-//                    System.out.println(previousAdd.toString()+"Reachable");
+//                    ChatApp.logger.info(previousAdd.toString()+"Reachable");
 //                }
 //            }
 //                
 //        }
 //        
-//        System.out.println(localAddress);
+//        ChatApp.logger.info(localAddress);
 //        
 //        
 //        
-//        System.out.println(localAddress.previous());
+//        ChatApp.logger.info(localAddress.previous());
 //      
 //        
 ////        
@@ -229,7 +229,7 @@ public class Discovery extends Thread
 //         if(pingHostApplication(address))
 //              {
 //                  connectedHosts.add(address);
-//                  System.out.println(address.toString()+" Reachable");
+//                  ChatApp.logger.info(address.toString()+" Reachable");
 //              }
 //    }
     
@@ -249,7 +249,7 @@ public class Discovery extends Thread
 //        }
 //        catch(IOException e)
 //        {
-//            System.out.println(e.getMessage());
+//            ChatApp.logger.info(e.getMessage());
 //            return false;
 //        }
 //        finally
