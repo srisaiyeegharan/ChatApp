@@ -25,7 +25,7 @@ public class CommandLine extends Thread {
     private volatile Scanner cmdInput;
     
     /**
-     *
+     * Create a new instance of CommandLine
      * @param msgProcessor
      */
     public CommandLine(MessageProcessor msgProcessor) 
@@ -36,7 +36,7 @@ public class CommandLine extends Thread {
     }
     
     /**
-     *
+     * Terminate File Server 
      */
     public void terminate()
     {
@@ -62,10 +62,10 @@ public class CommandLine extends Thread {
         
     }
     
-    //Takes in the user input from command line 
+    
 
     /**
-     *
+     * Takes in the user input from command line and sends it to respective methods to strip the command
      */
         public void userInput()
     {
@@ -118,7 +118,7 @@ public class CommandLine extends Thread {
     }
     
     /**
-     *
+     * Strips the "View" Command to its respective parts
      * @param pCommand
      */
     public void stripViewCmd(String pCommand)
@@ -145,7 +145,7 @@ public class CommandLine extends Thread {
     }
 
     /**
-     *
+     * Strips the "Send" Command to its respective parts
      * @param pMessage
      */
     public void stripSendCmd(String pMessage)
@@ -215,7 +215,7 @@ public class CommandLine extends Thread {
     } 
 
     /**
-     *
+     * Method which finds the user input between < > 
      * @param pCommand
      * @return
      */
@@ -250,7 +250,7 @@ public class CommandLine extends Thread {
     }
     
     /**
-     *
+     * Method which finds the user input prefix before <..>
      * @param pCommand
      * @return
      */
@@ -294,7 +294,7 @@ public class CommandLine extends Thread {
     }
     
     /**
-     *
+     *  Terminates the client from ChatApp 
      */
     public void quitApp()
     {
@@ -308,7 +308,7 @@ public class CommandLine extends Thread {
     }
 
     /**
-     *
+     * Propagates the Send ALL user input to messageProcessor
      * @param pMode
      * @param pMessage
      */
@@ -322,7 +322,7 @@ public class CommandLine extends Thread {
     }
 
     /**
-     *
+     * Propagates the Send PM user input to messageProcessor
      * @param pMode
      * @param pIp
      * @param pMessage
@@ -338,7 +338,7 @@ public class CommandLine extends Thread {
     }
 
     /**
-     *
+     * Propagates the Send FILE user input to messageProcessor
      * @param pIp
      * @param pFileName
      */
@@ -352,7 +352,7 @@ public class CommandLine extends Thread {
     }
 
     /**
-     *
+     * Synchronized method which allows for messages to be displayed from multiple threads
      * @param mode
      * @param ip
      * @param message
@@ -374,7 +374,7 @@ public class CommandLine extends Thread {
     }
 
     /**
-     *
+     * Method which writes the Received file to the console 
      * @param ip
      * @param file
      */

@@ -23,6 +23,15 @@ import java.util.logging.SimpleFormatter;
  *
  * @author aussi
  */
+
+
+CommandLine
+Discovery
+Host
+Utility
+MessageProcessor
+
+
 public class ChatApp
 {
     private static final String grpCode="IFFY";
