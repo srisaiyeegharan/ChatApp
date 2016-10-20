@@ -43,6 +43,9 @@ public class CommandLine extends Thread {
         running=false;
     }
 
+    /**
+     * Start running Thread
+     */
     @Override
     public void run() {
         
