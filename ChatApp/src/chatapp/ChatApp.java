@@ -5,6 +5,7 @@
  */
 package chatapp;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
@@ -25,18 +26,18 @@ public class ChatApp
      */
     public static void main(String[] args)
     {
-        Discovery dis = new Discovery("Srisaiyeegharan");
-        dis.start();
-        PeerCommunicationServer com = new PeerCommunicationServer(dis, grpCode);
-        com.start();
-        MessageProcessor msgproc= new MessageProcessor(dis);
+        
+       
+       String username="Ibrahim";
+        MessageProcessor msgproc= new MessageProcessor(username,grpCode);
         msgproc.start();
-       
-        
-        
-       
-        
-        //ibisTest();
+
+        try {
+            msgproc.join();           
+            //ibisTest();
+        } catch (InterruptedException ex) {
+            Logger.getLogger(ChatApp.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     static void srisTest()

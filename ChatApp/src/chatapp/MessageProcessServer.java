@@ -24,10 +24,17 @@ public class MessageProcessServer extends Thread{
     private int port;
     private MessageProcessor messageProcessor;
     private DatagramSocket socket;
+    private final String BYE_MESSAGE="*BYE*";
+    private volatile boolean running=true;
     public MessageProcessServer(MessageProcessor pmessageProcessor)
     {
         port=4002;
         messageProcessor = pmessageProcessor;
+    }
+    public synchronized void terminate()
+    {
+        running=false;
+        socket.close();
     }
     @Override
     public void run() {
@@ -41,12 +48,13 @@ public class MessageProcessServer extends Thread{
         {
             socket.close();
         }
+        System.out.println("Message Process Server exiting");
     }
     
     public void startListening(DatagramSocket socket) throws IOException
     {
         DatagramPacket recievePacket;
-        while(true)
+        while(running)
         {
             byte[] buff= new byte[1024];
             recievePacket=new DatagramPacket(buff,buff.length);
@@ -77,7 +85,15 @@ public class MessageProcessServer extends Thread{
                     msgValue=split[1];
                     //call UDPchat with message from all
                     System.out.println("Message from all"+msgValue);
-                    //sending message to the MessageProcessor
+                    
+                    //check if its a BYE message
+                    if(msgValue.equals(BYE_MESSAGE))
+                    {
+                        System.out.println("Host Removed "+recievePacket.getAddress());
+                        messageProcessor.removeHost(recievePacket.getAddress());
+                    }
+                    else
+                    //if not sending normal message to the MessageProcessor
                     messageProcessor.recieveMessage(split[0], recievePacket.getAddress(), msgValue);
                     
                     
