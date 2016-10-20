@@ -121,7 +121,7 @@ public class MessageProcessor  extends Thread{
     public void messageProcessorSendPm(String pRecievedMode, String pRecievedIp, String pRecievedMessage)
     {
         InetAddress ip;
-        ip = Utility.getInetAddress(pRecievedIp);
+        ip = Utility.getInetAddress(pRecievedIp);        
         StringBuilder builder= new StringBuilder();
         builder.append("{"+pRecievedMode.toUpperCase()+"=");
         builder.append(pRecievedMessage+"}");

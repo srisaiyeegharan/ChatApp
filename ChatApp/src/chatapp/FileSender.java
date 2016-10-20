@@ -23,7 +23,7 @@ import java.util.logging.Logger;
  */
 public class FileSender extends Thread
 {
-    private final int FILE_SERVER_PORT=4004;
+    private final int FILE_SERVER_PORT=4009;
     private Socket peerfileServer;
     private InetAddress IP;
     private String fName;

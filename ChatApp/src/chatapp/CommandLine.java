@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 /**
  *
  * @author Srisaiyeegharan
+ * 
  */
 
 public class CommandLine extends Thread {
@@ -21,13 +22,22 @@ public class CommandLine extends Thread {
     //Global variable m 
     private MessageProcessor msgProcsr;
     private volatile boolean running=true;
+    private volatile Scanner cmdInput;
     
+    /**
+     *
+     * @param msgProcessor
+     */
     public CommandLine(MessageProcessor msgProcessor) 
     {
+        cmdInput= new Scanner(System.in);
         stream = System.out;
         msgProcsr=msgProcessor;
     }
     
+    /**
+     *
+     */
     public void terminate()
     {
         running=false;
@@ -53,13 +63,17 @@ public class CommandLine extends Thread {
     }
     
     //Takes in the user input from command line 
-    public void userInput()
+
+    /**
+     *
+     */
+        public void userInput()
     {
         while(running)
         {
-            Scanner input = new Scanner(System.in);
+         
         //scanner moves down after returning the current line.
-        String line = input.nextLine();
+        String line = cmdInput.nextLine();
         //passing the read String to stripMessage method
         
         //extract command  prefix
@@ -103,6 +117,10 @@ public class CommandLine extends Thread {
         
     }
     
+    /**
+     *
+     * @param pCommand
+     */
     public void stripViewCmd(String pCommand)
     {
         pCommand=pCommand.trim();
@@ -125,6 +143,11 @@ public class CommandLine extends Thread {
         }
         
     }
+
+    /**
+     *
+     * @param pMessage
+     */
     public void stripSendCmd(String pMessage)
     { 
         pMessage=pMessage.trim();
@@ -155,7 +178,7 @@ public class CommandLine extends Thread {
        //for testing purpose
        for (int i = 0; i<connectionArrayLength; i++)
        {
-           stream.println(connectionArray[i]);
+           ChatApp.logger.info(connectionArray[i]);
        }
        //assigning mode the value
        String mode=connectionArray[0];
@@ -190,6 +213,12 @@ public class CommandLine extends Thread {
                stream.println("Invalid Mode");
        }
     } 
+
+    /**
+     *
+     * @param pCommand
+     * @return
+     */
     public String stripCmd(String pCommand)
     {
         //regex that finds everything from < to >
@@ -220,6 +249,11 @@ public class CommandLine extends Thread {
        return connectionString;
     }
     
+    /**
+     *
+     * @param pCommand
+     * @return
+     */
     public String extractCmdPrefix(String pCommand)
     {
           //regex that finds everything to ... <
@@ -259,6 +293,9 @@ public class CommandLine extends Thread {
         
     }
     
+    /**
+     *
+     */
     public void quitApp()
     {
         //send BYE message to all peers
@@ -269,43 +306,81 @@ public class CommandLine extends Thread {
         msgProcsr.terminateApp();
          
     }
+
+    /**
+     *
+     * @param pMode
+     * @param pMessage
+     */
     public void sendAll(String pMode, String pMessage)
-    {           
-        stream.println("Sending Everyone a message");
-        stream.println(pMode + " and " + pMessage);
+    {
+        pMode=pMode.trim();
+        pMessage=pMessage.trim();
+        ChatApp.logger.info("Sending Everyone a message");
+        ChatApp.logger.info(pMode + " and " + pMessage);
         msgProcsr.messageProcessorSendAll(pMode, pMessage);
     }
+
+    /**
+     *
+     * @param pMode
+     * @param pIp
+     * @param pMessage
+     */
     public void sendPm(String pMode, String pIp, String pMessage) 
     {
-        stream.println("Sending a private message");
-        stream.println(pMode + " and " + pIp + " and " + pMessage);
+        pMode=pMode.trim();
+        pIp=pIp.trim();
+        pMessage=pMessage.trim();
+        ChatApp.logger.info("Sending a private message");
+        ChatApp.logger.info(pMode + " and " + pIp + " and " + pMessage);
         msgProcsr.messageProcessorSendPm(pMode, pIp, pMessage);
     }
+
+    /**
+     *
+     * @param pIp
+     * @param pFileName
+     */
     public void sendFile( String pIp, String pFileName)
     {
-        stream.println("Sending a File");
-        stream.println("File" + " and " + pIp + " and " + pFileName);
+        pIp=pIp.trim();
+        pFileName=pFileName.trim();
+        ChatApp.logger.info("Sending a File");
+        ChatApp.logger.info("File" + " and " + pIp + " and " + pFileName);
         msgProcsr.messageProcessorSendFile( pIp, pFileName);
     }
+
+    /**
+     *
+     * @param mode
+     * @param ip
+     * @param message
+     */
     public synchronized void writeRecievedMessage(String mode, String ip, String message)
     {
        String recievedMessage;
        switch (mode.toLowerCase())
        {
            case "all":
-               recievedMessage = "Broadcast From " + ip + ": " + message;
-               stream.print(recievedMessage);
+               recievedMessage = "//MESSAGE TO ALL FROM " + ip + ": " + message;
+               stream.println(recievedMessage);
                break;
            case "pm":
-               recievedMessage = "PM From " + ip + ": " + message;
-               stream.print(recievedMessage);
+               recievedMessage = "//PM FROM " + ip + ": " + message;
+               stream.println(recievedMessage);
                break;
         }
     }
+
+    /**
+     *
+     * @param ip
+     * @param file
+     */
     public void writeRecievedFile(String ip, String file)
     {
-        stream.println("File Reciept");
-        stream.println("Recieving File:"+file+" from "+ip);
+        stream.println("RECIEVED FILE:"+file+" FROM "+ip);
     }
 
    
