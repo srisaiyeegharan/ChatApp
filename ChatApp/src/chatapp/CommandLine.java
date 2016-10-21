@@ -206,21 +206,19 @@ public class CommandLine extends Thread {
                 messageString = message.replace(">", "");
             }
        }
-     
+       //if the user inputs a message along with the file
        if ("file".equals(mode.toLowerCase()))
        {
             Pattern msgPattern = Pattern.compile(reg);
             Matcher stringMsg = msgPattern.matcher(pMessage);
-            stream.println(stringMsg.find());
             boolean stringFind = stringMsg.find();
-            if (stringFind)
+            
+            //stream.println(stringFind);
+            
+            if(stringFind)
             {
                 stream.println("Message not supported for File Transfer");
                 return;  
-            }
-            else
-            {
-                stream.println("Good work");
             }
        }
            
