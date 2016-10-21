@@ -17,7 +17,8 @@ import java.util.logging.Logger;
 
 /**
  * Thread to send a UDP Message
- * @author aussi
+ * @author Ibrahim, Sri
+ * @see http://stackoverflow.com/questions/10556829/sending-and-receiving-udp-packets-using-java
  */
 public class MessageSendUDP extends Thread
 {

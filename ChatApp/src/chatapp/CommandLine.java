@@ -11,9 +11,9 @@ import java.util.regex.Pattern;
  */
 
 /**
- *
- * @author Srisaiyeegharan
- * 
+ * Thread that provides command line interface to application
+ * @author Srisaiyeegharan,Ibrahim
+ * @see http://stackoverflow.com/questions/15633228/how-to-remove-all-white-spaces-in-java
  */
 
 public class CommandLine extends Thread {
@@ -25,7 +25,7 @@ public class CommandLine extends Thread {
     private volatile Scanner cmdInput;
     
     /**
-     *
+     * Create a new instance of CommandLine
      * @param msgProcessor
      */
     public CommandLine(MessageProcessor msgProcessor) 
@@ -36,13 +36,16 @@ public class CommandLine extends Thread {
     }
     
     /**
-     *
+     * Terminate File Server 
      */
     public void terminate()
     {
         running=false;
     }
 
+    /**
+     * Start running Thread
+     */
     @Override
     public void run() {
         
@@ -50,22 +53,19 @@ public class CommandLine extends Thread {
         stream.println("Welcome to Chat Messages");  
         //Testing purpose
         String sendAllMessage = "Send <ALL>Hello how are you";
-        String sendPeerMessage = "Send <PM,136.186.14.88>Hello Peer How are you";
+        String sendPeerMessage = "Send <PM,192.168.45.1>Hello Peer How are you";
         String sendPeerFile = "Send <FILE,192.168.45.1,sri.jpg>";
         String getIPS="View <IPs>";
         String quit="Quit<>";
         String viewCommands="View <Commands>";
         //Calling the userInput method
-        userInput();
-        
-        
-        
+        userInput();   
     }
     
-    //Takes in the user input from command line 
+    
 
     /**
-     *
+     * Takes in the user input from command line and sends it to respective methods to strip the command
      */
         public void userInput()
     {
@@ -118,13 +118,19 @@ public class CommandLine extends Thread {
     }
     
     /**
-     *
+     * Strips the "View" Command to its respective parts
      * @param pCommand
      */
     public void stripViewCmd(String pCommand)
     {
         pCommand=pCommand.trim();
         String checkedString=stripCmd(pCommand);
+        checkedString = checkedString.trim();
+         ChatApp.logger.info(checkedString);
+        checkedString = checkedString.replaceAll("\\s", "");
+        
+        ChatApp.logger.info(checkedString);
+        
         if(checkedString.equals(""))
         {
             stream.println("Invalid VIEW Command");
@@ -145,12 +151,12 @@ public class CommandLine extends Thread {
     }
 
     /**
-     *
+     * Strips the "Send" Command to its respective parts
      * @param pMessage
      */
     public void stripSendCmd(String pMessage)
     { 
-        pMessage=pMessage.trim();
+       pMessage=pMessage.trim();
        ChatApp.logger.info("Lets Strip the Send Message");
       //check command matches format and process it
        String connectionString=stripCmd(pMessage);
@@ -181,28 +187,63 @@ public class CommandLine extends Thread {
            ChatApp.logger.info(connectionArray[i]);
        }
        //assigning mode the value
-       String mode=connectionArray[0];
+       String mode=connectionArray[0].replaceAll("\\s","");
+       if (mode.toLowerCase().equals("all") && connectionArray.length != 1)
+       {
+           stream.println("Incorrect ALL command format");
+           return;
+       }
        
-       //If the user input mode is file
+       //If the user input mode is not a file then get the message
        if (!"file".equals(mode.toLowerCase()))
        {
             Pattern msgPattern = Pattern.compile(reg);  
             Matcher stringMsg = msgPattern.matcher(pMessage);
-             while (stringMsg.find())
-             {
+            while (stringMsg.find()){
             message = stringMsg.group();
             ChatApp.logger.info(message);
-         }
-            messageString = message.replace(">", "");
-           
+            }
+            if (mode.toLowerCase().equals("pm") && connectionArray.length != 2)
+            {
+                stream.println("Incorrect PM command format");
+                return;
+            }
+            
+            if (message == null){
+                stream.println("Enter a message to be sent");
+                return;
+            }
+            else {
+                messageString = message.replace(">", "");
+            }
        }
-      
+       //if the user inputs a message along with the file
+       if ("file".equals(mode.toLowerCase()))
+       {
+            Pattern msgPattern = Pattern.compile(reg);
+            Matcher stringMsg = msgPattern.matcher(pMessage);
+            boolean stringFind = stringMsg.find();
+            
+            //stream.println(stringFind);
+            
+            if(stringFind)
+            {
+                stream.println("Message not supported for File Transfer");
+                return;  
+            }
+            if (connectionArray.length != 3)
+            {
+                stream.println("Specify Mode, IP and File Name");
+                return;
+            }
+       }
+           
        //switch to call methods based on the mode from user input
        switch (mode.toLowerCase())
        {
            case "all":
-               sendAll(mode,messageString);
-               break;
+                sendAll(mode,messageString);
+                break;
            case "pm":
                sendPm(mode,connectionArray[1],messageString);
                break;
@@ -215,7 +256,7 @@ public class CommandLine extends Thread {
     } 
 
     /**
-     *
+     * Method which finds the user input between < > 
      * @param pCommand
      * @return
      */
@@ -250,7 +291,7 @@ public class CommandLine extends Thread {
     }
     
     /**
-     *
+     * Method which finds the user input prefix before <..>
      * @param pCommand
      * @return
      */
@@ -294,7 +335,7 @@ public class CommandLine extends Thread {
     }
     
     /**
-     *
+     *  Terminates the client from ChatApp 
      */
     public void quitApp()
     {
@@ -308,7 +349,7 @@ public class CommandLine extends Thread {
     }
 
     /**
-     *
+     * Propagates the Send ALL user input to messageProcessor
      * @param pMode
      * @param pMessage
      */
@@ -322,7 +363,7 @@ public class CommandLine extends Thread {
     }
 
     /**
-     *
+     * Propagates the Send PM user input to messageProcessor
      * @param pMode
      * @param pIp
      * @param pMessage
@@ -331,6 +372,7 @@ public class CommandLine extends Thread {
     {
         pMode=pMode.trim();
         pIp=pIp.trim();
+        pIp = pIp.replaceAll("\\s", "");
         pMessage=pMessage.trim();
         ChatApp.logger.info("Sending a private message");
         ChatApp.logger.info(pMode + " and " + pIp + " and " + pMessage);
@@ -338,7 +380,7 @@ public class CommandLine extends Thread {
     }
 
     /**
-     *
+     * Propagates the Send FILE user input to messageProcessor
      * @param pIp
      * @param pFileName
      */
@@ -346,13 +388,14 @@ public class CommandLine extends Thread {
     {
         pIp=pIp.trim();
         pFileName=pFileName.trim();
+        pIp = pIp.replaceAll("\\s", "");
         ChatApp.logger.info("Sending a File");
         ChatApp.logger.info("File" + " and " + pIp + " and " + pFileName);
         msgProcsr.messageProcessorSendFile( pIp, pFileName);
     }
 
     /**
-     *
+     * Synchronized method which allows for messages to be displayed from multiple threads
      * @param mode
      * @param ip
      * @param message
@@ -374,7 +417,7 @@ public class CommandLine extends Thread {
     }
 
     /**
-     *
+     * Method which writes the Received file to the console 
      * @param ip
      * @param file
      */

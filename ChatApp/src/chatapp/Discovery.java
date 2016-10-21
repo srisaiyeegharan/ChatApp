@@ -3,6 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
+
 package chatapp;
 
 import java.io.IOException;
@@ -18,11 +20,9 @@ import java.util.regex.Pattern;
 
 //using subnet utils provided by apache
 
-
-
 /**
- *
- * @author aussi
+ * Thread which discovers hosts
+ * @author Ibrahim,Sri
  * @see http://stackoverflow.com/questions/8462498/how-to-determine-internet-network-interface-in-java
  */
 public class Discovery extends Thread
@@ -35,15 +35,25 @@ public class Discovery extends Thread
     private final String BROADCAST_CODE_MESSAGE="[ONLINE?IFFY]";
     private final int COM_PORT=4003;
 
+    /**
+     * Method which returns the local host
+     * @return
+     */
     public Host getLocalHost()
     {
         return localHost;
     }
+    
     private final int IP_RANGE=10;
     private final int FILE_TRANSFER_PORT=4009;
     private final String MULTICAST_ADD="239.255.142.99";
     private final long BCAST_INTERVAL=10000;
     private volatile boolean running=true;
+
+    /**
+     * Method which stores the discovered clients
+     * @param username
+     */
     public Discovery(String username)
     {
         connectedHosts= new ArrayList<>();
@@ -61,11 +71,18 @@ public class Discovery extends Thread
         }
         
     }
+
+    /**
+     * Terminate Discovery
+     */
     public void terminate()
     {
         running=false;
     }
-
+    
+    /**
+     * Start running thread
+     */
     @Override
     public void run()
     {
@@ -149,6 +166,12 @@ public class Discovery extends Thread
         //TO DO- Send ARE YOU ONLINE REQUEST to all connected hosts
         
     }
+
+    /**
+     *
+     * @param hostname
+     * @param address
+     */
     public synchronized void addToChatGroup(String hostname,InetAddress address)
     {
         //TO DO updating the host lists for ARE U ONLINE confirmation
@@ -159,6 +182,10 @@ public class Discovery extends Thread
         }
     }
     
+    /**
+     *
+     * @param hostIP
+     */
     public synchronized void removeFromChatGroup(InetAddress hostIP)
     {
         if(groupChatHosts.containsKey(hostIP))
@@ -177,6 +204,11 @@ public class Discovery extends Thread
         
         
     }
+
+    /**
+     *
+     * @return
+     */
     public synchronized HashMap<InetAddress,String> getGroupChatHosts()
     {
         return groupChatHosts;

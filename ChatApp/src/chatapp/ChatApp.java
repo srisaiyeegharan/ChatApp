@@ -20,9 +20,11 @@ import static java.util.logging.Logger.getLogger;
 import java.util.logging.SimpleFormatter;
 
 /**
- *
- * @author aussi
+ * Chat App
+ * @author Ibrahim, Sri
+ * @see http://stackoverflow.com/questions/15758685/how-to-write-logs-in-text-file-when-using-java-util-logging-logger
  */
+
 public class ChatApp
 {
     private static final String grpCode="IFFY";
@@ -36,11 +38,12 @@ public class ChatApp
         //read username from command line
         Scanner scan = new Scanner(System.in);
        String username="";
-       while(username.equals(""))
+       while(username.equals("") || username.contains(" "))
        {
-           System.out.println("Enter Username");
+           System.out.println("Enter Username with no spaces");
            username=scan.nextLine();
        }
+       username=username.trim();
         //logger setup
         SimpleFormatter formatter= new SimpleFormatter();
         

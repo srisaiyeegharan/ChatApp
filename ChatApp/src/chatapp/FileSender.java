@@ -19,7 +19,8 @@ import java.util.logging.Logger;
 
 /**
  * Thread to Send Files sent by user
- * @author aussi
+ * @author Ibrahim, Sri
+ * @see http://www.tutorialspoint.com/java/io/fileoutputstream_write_byte.htm
  */
 public class FileSender extends Thread
 {
@@ -111,10 +112,7 @@ public class FileSender extends Thread
         System.out.println("Transfer Complete");
         
         //send to chat app file sent
-        
         //close sockets
-       
-        
     }
     
     

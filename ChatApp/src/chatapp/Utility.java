@@ -4,18 +4,22 @@
  * and open the template in the editor.
  */
 package chatapp;
-
-/**
- *
- * @author Srisaiyeegharan
- */
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+/**
+ * Class which handles the IP conversions
+ * @author Srisaiyeegharan, Ibi
+ */
 public class Utility {
     
-    //Returns String of IP address of a given InetAddress IP 
+    /**
+     * Returns IP address in String of a given InetAddress IP 
+     * @param pIp
+     * @return
+     */
     public static String getStringFromInet(InetAddress pIp)
     {
         //InetAddress to String
@@ -26,10 +30,16 @@ public class Utility {
         return stringIp;
     }
     
-    //Return InetAddress of a givent String IP address
+    /**
+     * Return InetAddress of a given String IP address
+     * @param ip
+     * @return
+     */
     public static InetAddress getInetAddress (String ip)
     {
-        
+        String[] splits=ip.split("\\.");
+        if(splits.length!=4)
+            return null;
         InetAddress address = null;
         try {
             //Get by name of the given IP address

@@ -9,7 +9,8 @@ import java.net.InetAddress;
 
 /**
  * Class to Manage File Handling in App
- * @author aussi
+ * @author Ibrahim,Sri
+ * @see http://stackoverflow.com/questions/4687615/how-to-achieve-transfer-file-between-client-and-server-using-java-socket
  */
 public class FileProcessor 
 {

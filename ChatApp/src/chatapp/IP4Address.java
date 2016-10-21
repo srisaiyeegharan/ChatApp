@@ -11,8 +11,8 @@ import java.net.UnknownHostException;
 import java.net.InterfaceAddress;
 
 /**
- *
- * @author aussi
+ * Class which provides IP handling
+ * @author Ibrahim, Sri
  * @see http://stackoverflow.com/questions/13792784/incrementing-through-ip-addresses-in-string-format
  */
 public class IP4Address 

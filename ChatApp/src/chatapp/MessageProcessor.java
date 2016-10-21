@@ -6,17 +6,17 @@ package chatapp;
  * and open the template in the editopfgr.
  */
 
-/**
- *
- * @author Srisaiyeegharan
- */
-
-
 import java.net.InetAddress;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+/**
+ * Thread which manages the app
+ * @author Srisaiyeegharan, Ibrahim
+ * @see https://www.tutorialspoint.com/java/java_multithreading.htm
+ */
 public class MessageProcessor  extends Thread{
    
     private final int MSG_SEND_PORT = 4002;
@@ -28,12 +28,18 @@ public class MessageProcessor  extends Thread{
     private String username;
     private String grpCode;
     
-    
+    /**
+     * Creates an instance of Message processor
+     */
     MessageProcessor(String uname,String code)  {
       username=uname;
       grpCode=code;
      
     }
+    
+    /**
+     * Start this thread
+     */
     @Override
     public void run()
     {
@@ -57,6 +63,10 @@ public class MessageProcessor  extends Thread{
             Logger.getLogger(MessageProcessor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    /**
+     * Terminates this thread
+     */
     public void terminateApp()
     {
         try {
@@ -72,6 +82,11 @@ public class MessageProcessor  extends Thread{
             Logger.getLogger(MessageProcessor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    /**
+     * This method returns the available chat members
+     * @return
+     */
     public String getGroupChatMembers()
     {
         //return all hosts with their ips to be displayed
@@ -90,10 +105,20 @@ public class MessageProcessor  extends Thread{
         return builder.toString();
     }
     
+    /**
+     * This method is used to remove a host from the list 
+     * @param hostIP
+     */
     public void removeHost(InetAddress hostIP)
     {
         discovery.removeFromChatGroup(hostIP);
     }
+
+    /**
+     * Sends the message to all the chat members available on the list
+     * @param pRecievedMode
+     * @param pRecievedMessage
+     */
     public void messageProcessorSendAll(String pRecievedMode, String pRecievedMessage)
     {
         //get all connected hosts
@@ -118,6 +143,12 @@ public class MessageProcessor  extends Thread{
         
     }
     
+    /**
+     * Sends a private message to a given IP
+     * @param pRecievedMode
+     * @param pRecievedIp
+     * @param pRecievedMessage
+     */
     public void messageProcessorSendPm(String pRecievedMode, String pRecievedIp, String pRecievedMessage)
     {
        
@@ -126,7 +157,7 @@ public class MessageProcessor  extends Thread{
          //validate ip
         if(ip==null || !validateIP(ip))
         {
-            System.out.println("Invalid IP specified");
+            System.out.println("Invalid IP or name specified");
             return;
         }
         StringBuilder builder= new StringBuilder();
@@ -141,6 +172,11 @@ public class MessageProcessor  extends Thread{
         
     }
     
+    /**
+     * Sends a file to a given IP
+     * @param pSendIP
+     * @param pSendFile
+     */
     public void messageProcessorSendFile(String pSendIP, String pSendFile)
     {
         ChatApp.logger.info("Reached messageProcessorSendFile "+pSendIP+pSendFile);
@@ -149,17 +185,28 @@ public class MessageProcessor  extends Thread{
         ip = getInetAddress(pSendIP);        
         if(ip==null || !validateIP(ip))
         {
-            System.out.println("Invalid IP specified");
+            System.out.println("Invalid IP or name specified");
             return;
         }
         fileProcessor.sendFile(ip, pSendFile);
     }
     
+    /**
+     * Passes the received file to the commandLine class
+     * @param IP
+     * @param filename
+     */
     public void messageProcessorRecievFile(String IP, String filename)
     {
         commandLine.writeRecievedFile(IP, filename);
     }
     
+    /**
+     * Passes the received message to the commandLine class
+     * @param pmode
+     * @param pip
+     * @param pmessage
+     */
     public void recieveMessage(String pmode, InetAddress pip, String pmessage)
     {
         String ip;
@@ -189,7 +236,7 @@ public class MessageProcessor  extends Thread{
             int count=0;
             for(HashMap.Entry<InetAddress,String> entry :group.entrySet())
             {
-                if(entry.getValue().equals(nameORip))
+                if(entry.getValue().toLowerCase().equals(nameORip.toLowerCase()))
                 {
                     count++;
                     ip=entry.getKey();

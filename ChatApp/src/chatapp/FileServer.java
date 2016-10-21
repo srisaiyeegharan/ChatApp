@@ -17,7 +17,8 @@ import java.util.logging.Logger;
 
 /**
  * A Thread to run File Server
- * @author aussi
+ * @author Ibrahim, Sri
+ * @see http://stackoverflow.com/questions/6298479/listen-to-port-via-a-java-socket
  */
 public class FileServer extends Thread
 {

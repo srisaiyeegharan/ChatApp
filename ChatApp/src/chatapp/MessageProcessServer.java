@@ -13,7 +13,8 @@ import java.util.logging.Logger;
 
 /**
  * Thread which processes incoming UDP messages
- * @author ibi
+ * @author Ibrahim, Sri
+ * @see https://docs.oracle.com/javase/tutorial/networking/datagrams/clientServer.html
  */
 public class MessageProcessServer extends Thread{
     //Message format accepted- {ALL=message...}

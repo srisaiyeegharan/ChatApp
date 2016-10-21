@@ -16,8 +16,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *This Thread is used for communication between hosts
- * @author aussi
+ * Thread which is used for communication between hosts
+ * @author Sri,Ibrahim
+ * @see http://stackoverflow.com/questions/4364434/let-two-udp-servers-listen-on-the-same-port
  */
 public class PeerCommunicationServer extends Thread
 {
