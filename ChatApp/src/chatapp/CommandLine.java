@@ -13,6 +13,7 @@ import java.util.regex.Pattern;
 /**
  *
  * @author Srisaiyeegharan
+ * 
  */
 
 public class CommandLine extends Thread {
@@ -21,18 +22,30 @@ public class CommandLine extends Thread {
     //Global variable m 
     private MessageProcessor msgProcsr;
     private volatile boolean running=true;
+    private volatile Scanner cmdInput;
     
+    /**
+     * Create a new instance of CommandLine
+     * @param msgProcessor
+     */
     public CommandLine(MessageProcessor msgProcessor) 
     {
+        cmdInput= new Scanner(System.in);
         stream = System.out;
         msgProcsr=msgProcessor;
     }
     
+    /**
+     * Terminate File Server 
+     */
     public void terminate()
     {
         running=false;
     }
 
+    /**
+     * Start running Thread
+     */
     @Override
     public void run() {
         
@@ -40,26 +53,27 @@ public class CommandLine extends Thread {
         stream.println("Welcome to Chat Messages");  
         //Testing purpose
         String sendAllMessage = "Send <ALL>Hello how are you";
-        String sendPeerMessage = "Send <PM,136.186.14.88>Hello Peer How are you";
+        String sendPeerMessage = "Send <PM,192.168.45.1>Hello Peer How are you";
         String sendPeerFile = "Send <FILE,192.168.45.1,sri.jpg>";
         String getIPS="View <IPs>";
         String quit="Quit<>";
         String viewCommands="View <Commands>";
         //Calling the userInput method
-        userInput();
-        
-        
-        
+        userInput();   
     }
     
-    //Takes in the user input from command line 
-    public void userInput()
+    
+
+    /**
+     * Takes in the user input from command line and sends it to respective methods to strip the command
+     */
+        public void userInput()
     {
         while(running)
         {
-            Scanner input = new Scanner(System.in);
+         
         //scanner moves down after returning the current line.
-        String line = input.nextLine();
+        String line = cmdInput.nextLine();
         //passing the read String to stripMessage method
         
         //extract command  prefix
@@ -103,10 +117,20 @@ public class CommandLine extends Thread {
         
     }
     
+    /**
+     * Strips the "View" Command to its respective parts
+     * @param pCommand
+     */
     public void stripViewCmd(String pCommand)
     {
         pCommand=pCommand.trim();
         String checkedString=stripCmd(pCommand);
+        checkedString = checkedString.trim();
+        stream.println(checkedString);
+        checkedString = checkedString.replaceAll("\\s", "");
+        
+        stream.println(checkedString);
+        
         if(checkedString.equals(""))
         {
             stream.println("Invalid VIEW Command");
@@ -125,9 +149,14 @@ public class CommandLine extends Thread {
         }
         
     }
+
+    /**
+     * Strips the "Send" Command to its respective parts
+     * @param pMessage
+     */
     public void stripSendCmd(String pMessage)
     { 
-        pMessage=pMessage.trim();
+       pMessage=pMessage.trim();
        ChatApp.logger.info("Lets Strip the Send Message");
       //check command matches format and process it
        String connectionString=stripCmd(pMessage);
@@ -155,31 +184,50 @@ public class CommandLine extends Thread {
        //for testing purpose
        for (int i = 0; i<connectionArrayLength; i++)
        {
-           stream.println(connectionArray[i]);
+           ChatApp.logger.info(connectionArray[i]);
        }
        //assigning mode the value
-       String mode=connectionArray[0];
+       String mode=connectionArray[0].replaceAll("\\s","");
        
-       //If the user input mode is file
+       //If the user input mode is not a file then get the message
        if (!"file".equals(mode.toLowerCase()))
        {
             Pattern msgPattern = Pattern.compile(reg);  
             Matcher stringMsg = msgPattern.matcher(pMessage);
-             while (stringMsg.find())
-             {
+            while (stringMsg.find()){
             message = stringMsg.group();
             ChatApp.logger.info(message);
-         }
-            messageString = message.replace(">", "");
-           
+            }
+            if (message == null){
+                stream.println("Enter a message to be sent");
+                return;
+            }
+            else {
+                messageString = message.replace(">", "");
+            }
        }
-      
+       //if the user inputs a message along with the file
+       if ("file".equals(mode.toLowerCase()))
+       {
+            Pattern msgPattern = Pattern.compile(reg);
+            Matcher stringMsg = msgPattern.matcher(pMessage);
+            boolean stringFind = stringMsg.find();
+            
+            //stream.println(stringFind);
+            
+            if(stringFind)
+            {
+                stream.println("Message not supported for File Transfer");
+                return;  
+            }
+       }
+           
        //switch to call methods based on the mode from user input
        switch (mode.toLowerCase())
        {
            case "all":
-               sendAll(mode,messageString);
-               break;
+                sendAll(mode,messageString);
+                break;
            case "pm":
                sendPm(mode,connectionArray[1],messageString);
                break;
@@ -190,6 +238,12 @@ public class CommandLine extends Thread {
                stream.println("Invalid Mode");
        }
     } 
+
+    /**
+     * Method which finds the user input between < > 
+     * @param pCommand
+     * @return
+     */
     public String stripCmd(String pCommand)
     {
         //regex that finds everything from < to >
@@ -220,6 +274,11 @@ public class CommandLine extends Thread {
        return connectionString;
     }
     
+    /**
+     * Method which finds the user input prefix before <..>
+     * @param pCommand
+     * @return
+     */
     public String extractCmdPrefix(String pCommand)
     {
           //regex that finds everything to ... <
@@ -259,6 +318,9 @@ public class CommandLine extends Thread {
         
     }
     
+    /**
+     *  Terminates the client from ChatApp 
+     */
     public void quitApp()
     {
         //send BYE message to all peers
@@ -269,43 +331,83 @@ public class CommandLine extends Thread {
         msgProcsr.terminateApp();
          
     }
+
+    /**
+     * Propagates the Send ALL user input to messageProcessor
+     * @param pMode
+     * @param pMessage
+     */
     public void sendAll(String pMode, String pMessage)
-    {           
-        stream.println("Sending Everyone a message");
-        stream.println(pMode + " and " + pMessage);
+    {
+        pMode=pMode.trim();
+        pMessage=pMessage.trim();
+        ChatApp.logger.info("Sending Everyone a message");
+        ChatApp.logger.info(pMode + " and " + pMessage);
         msgProcsr.messageProcessorSendAll(pMode, pMessage);
     }
+
+    /**
+     * Propagates the Send PM user input to messageProcessor
+     * @param pMode
+     * @param pIp
+     * @param pMessage
+     */
     public void sendPm(String pMode, String pIp, String pMessage) 
     {
-        stream.println("Sending a private message");
-        stream.println(pMode + " and " + pIp + " and " + pMessage);
+        pMode=pMode.trim();
+        pIp=pIp.trim();
+        pIp = pIp.replaceAll("\\s", "");
+        pMessage=pMessage.trim();
+        ChatApp.logger.info("Sending a private message");
+        ChatApp.logger.info(pMode + " and " + pIp + " and " + pMessage);
         msgProcsr.messageProcessorSendPm(pMode, pIp, pMessage);
     }
+
+    /**
+     * Propagates the Send FILE user input to messageProcessor
+     * @param pIp
+     * @param pFileName
+     */
     public void sendFile( String pIp, String pFileName)
     {
-        stream.println("Sending a File");
-        stream.println("File" + " and " + pIp + " and " + pFileName);
+        pIp=pIp.trim();
+        pFileName=pFileName.trim();
+        pIp = pIp.replaceAll("\\s", "");
+        ChatApp.logger.info("Sending a File");
+        ChatApp.logger.info("File" + " and " + pIp + " and " + pFileName);
         msgProcsr.messageProcessorSendFile( pIp, pFileName);
     }
+
+    /**
+     * Synchronized method which allows for messages to be displayed from multiple threads
+     * @param mode
+     * @param ip
+     * @param message
+     */
     public synchronized void writeRecievedMessage(String mode, String ip, String message)
     {
        String recievedMessage;
        switch (mode.toLowerCase())
        {
            case "all":
-               recievedMessage = "Broadcast From " + ip + ": " + message;
-               stream.print(recievedMessage);
+               recievedMessage = "//MESSAGE TO ALL FROM " + ip + ": " + message;
+               stream.println(recievedMessage);
                break;
            case "pm":
-               recievedMessage = "PM From " + ip + ": " + message;
-               stream.print(recievedMessage);
+               recievedMessage = "//PM FROM " + ip + ": " + message;
+               stream.println(recievedMessage);
                break;
         }
     }
+
+    /**
+     * Method which writes the Received file to the console 
+     * @param ip
+     * @param file
+     */
     public void writeRecievedFile(String ip, String file)
     {
-        stream.println("File Reciept");
-        stream.println("Recieving File:"+file+" from "+ip);
+        stream.println("RECIEVED FILE:"+file+" FROM "+ip);
     }
 
    

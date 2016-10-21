@@ -10,6 +10,7 @@ import java.io.IOException;
 import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.UnknownHostException;
+import java.util.Scanner;
 import java.util.logging.FileHandler;
 import java.util.logging.Handler;
 import java.util.logging.Level;
@@ -22,6 +23,7 @@ import java.util.logging.SimpleFormatter;
  *
  * @author aussi
  */
+
 public class ChatApp
 {
     private static final String grpCode="IFFY";
@@ -33,7 +35,13 @@ public class ChatApp
     public static void main(String[] args)
     {
         //read username from command line
-       
+        Scanner scan = new Scanner(System.in);
+       String username="";
+       while(username.equals(""))
+       {
+           System.out.println("Enter Username");
+           username=scan.nextLine();
+       }
         //logger setup
         SimpleFormatter formatter= new SimpleFormatter();
         
@@ -44,7 +52,7 @@ public class ChatApp
 }
        
        
-       String username="Ibrahim";
+       
         MessageProcessor msgproc= new MessageProcessor(username,grpCode);
         msgproc.start();
 

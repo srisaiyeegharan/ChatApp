@@ -17,6 +17,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+/**
+ *
+ * @author Srisaiyeegharan
+ */
 public class MessageProcessor  extends Thread{
    
     private final int MSG_SEND_PORT = 4002;
@@ -28,12 +33,18 @@ public class MessageProcessor  extends Thread{
     private String username;
     private String grpCode;
     
-    
+    /**
+     * Creates an instance of Message processor
+     */
     MessageProcessor(String uname,String code)  {
       username=uname;
       grpCode=code;
      
     }
+    
+    /**
+     * Start this thread
+     */
     @Override
     public void run()
     {
@@ -57,6 +68,10 @@ public class MessageProcessor  extends Thread{
             Logger.getLogger(MessageProcessor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    /**
+     * Terminates this thread
+     */
     public void terminateApp()
     {
         try {
@@ -72,6 +87,11 @@ public class MessageProcessor  extends Thread{
             Logger.getLogger(MessageProcessor.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    /**
+     * This method returns the available chat members
+     * @return
+     */
     public String getGroupChatMembers()
     {
         //return all hosts with their ips to be displayed
@@ -90,10 +110,20 @@ public class MessageProcessor  extends Thread{
         return builder.toString();
     }
     
+    /**
+     * This method is used to remove a host from the list 
+     * @param hostIP
+     */
     public void removeHost(InetAddress hostIP)
     {
         discovery.removeFromChatGroup(hostIP);
     }
+
+    /**
+     * Sends the message to all the chat members available on the list
+     * @param pRecievedMode
+     * @param pRecievedMessage
+     */
     public void messageProcessorSendAll(String pRecievedMode, String pRecievedMessage)
     {
         //get all connected hosts
@@ -118,10 +148,23 @@ public class MessageProcessor  extends Thread{
         
     }
     
+    /**
+     * Sends a private message to a given IP
+     * @param pRecievedMode
+     * @param pRecievedIp
+     * @param pRecievedMessage
+     */
     public void messageProcessorSendPm(String pRecievedMode, String pRecievedIp, String pRecievedMessage)
     {
+       
         InetAddress ip;
-        ip = Utility.getInetAddress(pRecievedIp);
+        ip =getInetAddress(pRecievedIp);  
+         //validate ip
+        if(ip==null || !validateIP(ip))
+        {
+            System.out.println("Invalid IP specified");
+            return;
+        }
         StringBuilder builder= new StringBuilder();
         builder.append("{"+pRecievedMode.toUpperCase()+"=");
         builder.append(pRecievedMessage+"}");
@@ -134,18 +177,41 @@ public class MessageProcessor  extends Thread{
         
     }
     
+    /**
+     * Sends a file to a given IP
+     * @param pSendIP
+     * @param pSendFile
+     */
     public void messageProcessorSendFile(String pSendIP, String pSendFile)
     {
         ChatApp.logger.info("Reached messageProcessorSendFile "+pSendIP+pSendFile);
-        
-        fileProcessor.sendFile(Utility.getInetAddress(pSendIP), pSendFile);
+        //validate ip
+        InetAddress ip;
+        ip = getInetAddress(pSendIP);        
+        if(ip==null || !validateIP(ip))
+        {
+            System.out.println("Invalid IP specified");
+            return;
+        }
+        fileProcessor.sendFile(ip, pSendFile);
     }
     
+    /**
+     * Passes the received file to the commandLine class
+     * @param IP
+     * @param filename
+     */
     public void messageProcessorRecievFile(String IP, String filename)
     {
         commandLine.writeRecievedFile(IP, filename);
     }
     
+    /**
+     * Passes the received message to the commandLine class
+     * @param pmode
+     * @param pip
+     * @param pmessage
+     */
     public void recieveMessage(String pmode, InetAddress pip, String pmessage)
     {
         String ip;
@@ -153,4 +219,42 @@ public class MessageProcessor  extends Thread{
         commandLine.writeRecievedMessage(pmode,ip,pmessage);
     }
     
+    private boolean validateIP(InetAddress ip)
+    {
+        //check if ip exist
+        HashMap<InetAddress,String> group= discovery.getGroupChatHosts();
+        if(group.containsKey(ip))
+            return true;
+        else
+            return false;
+    }
+    
+    private InetAddress getInetAddress(String nameORip)
+    {
+        InetAddress ip=null;
+        ip=Utility.getInetAddress(nameORip);
+        if(ip==null)
+        {
+            //check if username exist
+            HashMap<InetAddress,String> group= discovery.getGroupChatHosts();
+            
+            int count=0;
+            for(HashMap.Entry<InetAddress,String> entry :group.entrySet())
+            {
+                if(entry.getValue().equals(nameORip))
+                {
+                    count++;
+                    ip=entry.getKey();
+                }
+            }
+            if(count>1)
+            {
+               ip=null; 
+                System.out.println("Duplicate Usernames exist, Please type IP");
+            }
+
+                
+        }
+        return ip;
+    }
 }

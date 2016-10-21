@@ -104,7 +104,7 @@ public class MessageSendUDP extends Thread
 
             socket.send(packet);
 
-            ChatApp.logger.info("Packet Sent:"+packet.getData());
+            ChatApp.logger.info("Packet Sent:"+packet.getData()+" to IP "+packet.getAddress());
             Logger.getLogger(MessageSendUDP.class.getName()).log(Level.FINE, msg+"sent in packet");
         }
         
