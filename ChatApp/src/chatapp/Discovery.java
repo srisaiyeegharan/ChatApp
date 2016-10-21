@@ -181,88 +181,88 @@ public class Discovery extends Thread
     {
         return groupChatHosts;
     }
-//    private void checkHosts(IP4Address localAddress) throws Exception
-//    {
-//        //iterate through IP RANGE to check if connected
-//        IP4Address nextAdd=localAddress;
-//        IP4Address previousAdd=localAddress;
-//        int timeout=1000;
-//        for(int i=0;i<IP_RANGE;i++)
-//        {
-//            if(nextAdd.hasNext())
-//            {
-//              //get next host to ping
-//              nextAdd=nextAdd.next(); 
-//                ChatApp.logger.info("pingig"+nextAdd.toString());
-//              if(pingHostApplication(nextAdd))
-//              {
-//                  connectedHosts.add(nextAdd);
-//                  ChatApp.logger.info(nextAdd.toString()+"Reachable");
-//              }
-//                
-//            }
-//            
-//            if(previousAdd.hasPrevious())
-//            {
-//                //get previous host
-//                previousAdd=previousAdd.previous();
-//                ChatApp.logger.info("pingig"+previousAdd.toString());
-//                if(pingHostApplication(previousAdd))
-//                {
-//                    ChatApp.logger.info(previousAdd.toString()+"Reachable");
-//                }
-//            }
-//                
-//        }
-//        
-//        ChatApp.logger.info(localAddress);
-//        
-//        
-//        
-//        ChatApp.logger.info(localAddress.previous());
-//      
-//        
-////        
-//    }
-//    private void checkHost(IP4Address address)
-//    {
-//         if(pingHostApplication(address))
-//              {
-//                  connectedHosts.add(address);
-//                  ChatApp.logger.info(address.toString()+" Reachable");
-//              }
-//    }
+    private void checkHosts(IP4Address localAddress) throws Exception
+    {
+        //iterate through IP RANGE to check if connected
+        IP4Address nextAdd=localAddress;
+        IP4Address previousAdd=localAddress;
+        int timeout=1000;
+        for(int i=0;i<IP_RANGE;i++)
+        {
+            if(nextAdd.hasNext())
+            {
+              //get next host to ping
+              nextAdd=nextAdd.next(); 
+                ChatApp.logger.info("pingig"+nextAdd.toString());
+              if(pingHostApplication(nextAdd))
+              {
+                  connectedHosts.add(nextAdd);
+                  ChatApp.logger.info(nextAdd.toString()+"Reachable");
+              }
+                
+            }
+            
+            if(previousAdd.hasPrevious())
+            {
+                //get previous host
+                previousAdd=previousAdd.previous();
+                ChatApp.logger.info("pingig"+previousAdd.toString());
+                if(pingHostApplication(previousAdd))
+                {
+                    ChatApp.logger.info(previousAdd.toString()+"Reachable");
+                }
+            }
+                
+        }
+        
+        ChatApp.logger.info(localAddress.toString());
+        
+        
+        
+        ChatApp.logger.info(localAddress.previous().toString());
+      
+        
+        
+    }
+    private void checkHost(IP4Address address)
+    {
+         if(pingHostApplication(address))
+              {
+                  connectedHosts.add(address);
+                  ChatApp.logger.info(address.toString()+" Reachable");
+              }
+    }
     
-//    private boolean pingHostApplication(IP4Address address) 
-//    {
-//        //tries to create a connection to FILE_TRANFER_PORT
-//        //host using this application has to keep this port open
-//        Socket testSock=null;
-//        try
-//        {
-//            InetAddress inet=address.getInetAddress();
-//             testSock= new Socket();
-//             testSock.connect(new InetSocketAddress(inet,FILE_TRANSFER_PORT), 1000);
-//        } catch (UnknownHostException ex)
-//        {
-//            Logger.getLogger(Discovery.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        catch(IOException e)
-//        {
-//            ChatApp.logger.info(e.getMessage());
-//            return false;
-//        }
-//        finally
-//        {
-//            try
-//            {
-//                if(testSock!=null)
-//                testSock.close();
-//            } catch (IOException ex)
-//            {
-//                Logger.getLogger(Discovery.class.getName()).log(Level.SEVERE, null, ex);
-//            }
-//        }
-//        return true;
-//    }
+    private boolean pingHostApplication(IP4Address address) 
+    {
+        //tries to create a connection to FILE_TRANFER_PORT
+        //host using this application has to keep this port open
+        Socket testSock=null;
+        try
+        {
+            InetAddress inet=address.getInetAddress();
+             testSock= new Socket();
+             testSock.connect(new InetSocketAddress(inet,FILE_TRANSFER_PORT), 1000);
+        } catch (UnknownHostException ex)
+        {
+            Logger.getLogger(Discovery.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        catch(IOException e)
+        {
+            ChatApp.logger.info(e.getMessage());
+            return false;
+        }
+        finally
+        {
+            try
+            {
+                if(testSock!=null)
+                testSock.close();
+            } catch (IOException ex)
+            {
+                Logger.getLogger(Discovery.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return true;
+    }
 }

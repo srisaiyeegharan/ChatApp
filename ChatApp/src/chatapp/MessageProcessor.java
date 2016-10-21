@@ -120,8 +120,15 @@ public class MessageProcessor  extends Thread{
     
     public void messageProcessorSendPm(String pRecievedMode, String pRecievedIp, String pRecievedMessage)
     {
+       
         InetAddress ip;
-        ip = Utility.getInetAddress(pRecievedIp);        
+        ip =getInetAddress(pRecievedIp);  
+         //validate ip
+        if(ip==null || !validateIP(ip))
+        {
+            System.out.println("Invalid IP specified");
+            return;
+        }
         StringBuilder builder= new StringBuilder();
         builder.append("{"+pRecievedMode.toUpperCase()+"=");
         builder.append(pRecievedMessage+"}");
@@ -137,8 +144,15 @@ public class MessageProcessor  extends Thread{
     public void messageProcessorSendFile(String pSendIP, String pSendFile)
     {
         ChatApp.logger.info("Reached messageProcessorSendFile "+pSendIP+pSendFile);
-        
-        fileProcessor.sendFile(Utility.getInetAddress(pSendIP), pSendFile);
+        //validate ip
+        InetAddress ip;
+        ip = getInetAddress(pSendIP);        
+        if(ip==null || !validateIP(ip))
+        {
+            System.out.println("Invalid IP specified");
+            return;
+        }
+        fileProcessor.sendFile(ip, pSendFile);
     }
     
     public void messageProcessorRecievFile(String IP, String filename)
@@ -153,4 +167,42 @@ public class MessageProcessor  extends Thread{
         commandLine.writeRecievedMessage(pmode,ip,pmessage);
     }
     
+    private boolean validateIP(InetAddress ip)
+    {
+        //check if ip exist
+        HashMap<InetAddress,String> group= discovery.getGroupChatHosts();
+        if(group.containsKey(ip))
+            return true;
+        else
+            return false;
+    }
+    
+    private InetAddress getInetAddress(String nameORip)
+    {
+        InetAddress ip=null;
+        ip=Utility.getInetAddress(nameORip);
+        if(ip==null)
+        {
+            //check if username exist
+            HashMap<InetAddress,String> group= discovery.getGroupChatHosts();
+            
+            int count=0;
+            for(HashMap.Entry<InetAddress,String> entry :group.entrySet())
+            {
+                if(entry.getValue().equals(nameORip))
+                {
+                    count++;
+                    ip=entry.getKey();
+                }
+            }
+            if(count>1)
+            {
+               ip=null; 
+                System.out.println("Duplicate Usernames exist, Please type IP");
+            }
+
+                
+        }
+        return ip;
+    }
 }
