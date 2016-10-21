@@ -1,0 +1,1180 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE log SYSTEM "logger.dtd">
+<log>
+<record>
+  <date>2016-10-21T12:49:40</date>
+  <millis>1477014580026</millis>
+  <sequence>0</sequence>
+  <logger>global</logger>
+  <level>WARNING</level>
+  <class>chatapp.ChatApp</class>
+  <method>main</method>
+  <thread>1</thread>
+  <message>Log File Created</message>
+</record>
+<record>
+  <date>2016-10-21T12:49:40</date>
+  <millis>1477014580106</millis>
+  <sequence>1</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.Discovery</class>
+  <method>getCorrectLocalIP</method>
+  <thread>11</thread>
+  <message>Qualcomm Atheros QCA9377 Wireless Network Adapter</message>
+</record>
+<record>
+  <date>2016-10-21T12:49:40</date>
+  <millis>1477014580108</millis>
+  <sequence>2</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.Discovery</class>
+  <method>getCorrectLocalIP</method>
+  <thread>11</thread>
+  <message>192.168.1.100</message>
+</record>
+<record>
+  <date>2016-10-21T12:49:40</date>
+  <millis>1477014580168</millis>
+  <sequence>3</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.Discovery</class>
+  <method>broadcastCode</method>
+  <thread>12</thread>
+  <message>broadcasting code</message>
+</record>
+<record>
+  <date>2016-10-21T12:49:40</date>
+  <millis>1477014580168</millis>
+  <sequence>4</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.Discovery</class>
+  <method>discoverHost</method>
+  <thread>12</thread>
+  <message>{}</message>
+</record>
+<record>
+  <date>2016-10-21T12:49:40</date>
+  <millis>1477014580169</millis>
+  <sequence>5</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.MessageSendUDP</class>
+  <method>sendPacket</method>
+  <thread>17</thread>
+  <message>Send Buffer[ONLINE?IFFY]</message>
+</record>
+<record>
+  <date>2016-10-21T12:49:40</date>
+  <millis>1477014580169</millis>
+  <sequence>6</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.MessageSendUDP</class>
+  <method>sendPacket</method>
+  <thread>17</thread>
+  <message>Packet Sent:[B@602d8677 to IP /239.255.142.99</message>
+</record>
+<record>
+  <date>2016-10-21T12:49:41</date>
+  <millis>1477014581419</millis>
+  <sequence>7</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.CommandLine</class>
+  <method>extractCmdPrefix</method>
+  <thread>14</thread>
+  <message>extractedSend &lt;</message>
+</record>
+<record>
+  <date>2016-10-21T12:49:41</date>
+  <millis>1477014581419</millis>
+  <sequence>8</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.CommandLine</class>
+  <method>userInput</method>
+  <thread>14</thread>
+  <message>command to execute &lt;FILE,192.168.45.1,sri.jpg&gt;</message>
+</record>
+<record>
+  <date>2016-10-21T12:49:41</date>
+  <millis>1477014581419</millis>
+  <sequence>9</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.CommandLine</class>
+  <method>userInput</method>
+  <thread>14</thread>
+  <message>prefix Send </message>
+</record>
+<record>
+  <date>2016-10-21T12:49:41</date>
+  <millis>1477014581419</millis>
+  <sequence>10</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.CommandLine</class>
+  <method>stripSendCmd</method>
+  <thread>14</thread>
+  <message>Lets Strip the Send Message</message>
+</record>
+<record>
+  <date>2016-10-21T12:49:41</date>
+  <millis>1477014581420</millis>
+  <sequence>11</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.CommandLine</class>
+  <method>stripCmd</method>
+  <thread>14</thread>
+  <message>&lt;FILE,192.168.45.1,sri.jpg&gt;</message>
+</record>
+<record>
+  <date>2016-10-21T12:49:41</date>
+  <millis>1477014581420</millis>
+  <sequence>12</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.CommandLine</class>
+  <method>stripCmd</method>
+  <thread>14</thread>
+  <message>Stripped FILE,192.168.45.1,sri.jpg</message>
+</record>
+<record>
+  <date>2016-10-21T12:49:41</date>
+  <millis>1477014581421</millis>
+  <sequence>13</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.CommandLine</class>
+  <method>stripSendCmd</method>
+  <thread>14</thread>
+  <message>FILE</message>
+</record>
+<record>
+  <date>2016-10-21T12:49:41</date>
+  <millis>1477014581421</millis>
+  <sequence>14</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.CommandLine</class>
+  <method>stripSendCmd</method>
+  <thread>14</thread>
+  <message>192.168.45.1</message>
+</record>
+<record>
+  <date>2016-10-21T12:49:41</date>
+  <millis>1477014581421</millis>
+  <sequence>15</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.CommandLine</class>
+  <method>stripSendCmd</method>
+  <thread>14</thread>
+  <message>sri.jpg</message>
+</record>
+<record>
+  <date>2016-10-21T12:49:41</date>
+  <millis>1477014581422</millis>
+  <sequence>16</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.CommandLine</class>
+  <method>sendFile</method>
+  <thread>14</thread>
+  <message>Sending a File</message>
+</record>
+<record>
+  <date>2016-10-21T12:49:41</date>
+  <millis>1477014581422</millis>
+  <sequence>17</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.CommandLine</class>
+  <method>sendFile</method>
+  <thread>14</thread>
+  <message>File and 192.168.45.1 and sri.jpg</message>
+</record>
+<record>
+  <date>2016-10-21T12:49:41</date>
+  <millis>1477014581422</millis>
+  <sequence>18</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.MessageProcessor</class>
+  <method>messageProcessorSendFile</method>
+  <thread>14</thread>
+  <message>Reached messageProcessorSendFile 192.168.45.1sri.jpg</message>
+</record>
+<record>
+  <date>2016-10-21T12:49:41</date>
+  <millis>1477014581423</millis>
+  <sequence>19</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.FileProcessor</class>
+  <method>sendFile</method>
+  <thread>14</thread>
+  <message>Reached sendFile/192.168.45.1sri.jpg</message>
+</record>
+<record>
+  <date>2016-10-21T12:49:41</date>
+  <millis>1477014581426</millis>
+  <sequence>20</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.FileSender</class>
+  <method>run</method>
+  <thread>18</thread>
+  <message>Running Send</message>
+</record>
+<record>
+  <date>2016-10-21T12:49:41</date>
+  <millis>1477014581427</millis>
+  <sequence>21</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.FileSender</class>
+  <method>sendFile</method>
+  <thread>18</thread>
+  <message>Send File/192.168.45.1namesri.jpg</message>
+</record>
+<record>
+  <date>2016-10-21T12:49:46</date>
+  <millis>1477014586216</millis>
+  <sequence>22</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.CommandLine</class>
+  <method>extractCmdPrefix</method>
+  <thread>14</thread>
+  <message>extractedSend &lt;</message>
+</record>
+<record>
+  <date>2016-10-21T12:49:46</date>
+  <millis>1477014586217</millis>
+  <sequence>23</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.CommandLine</class>
+  <method>userInput</method>
+  <thread>14</thread>
+  <message>command to execute &lt;FILE,192.168.45.1,sri.jpg&gt; he</message>
+</record>
+<record>
+  <date>2016-10-21T12:49:46</date>
+  <millis>1477014586217</millis>
+  <sequence>24</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.CommandLine</class>
+  <method>userInput</method>
+  <thread>14</thread>
+  <message>prefix Send </message>
+</record>
+<record>
+  <date>2016-10-21T12:49:46</date>
+  <millis>1477014586217</millis>
+  <sequence>25</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.CommandLine</class>
+  <method>stripSendCmd</method>
+  <thread>14</thread>
+  <message>Lets Strip the Send Message</message>
+</record>
+<record>
+  <date>2016-10-21T12:49:46</date>
+  <millis>1477014586218</millis>
+  <sequence>26</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.CommandLine</class>
+  <method>stripCmd</method>
+  <thread>14</thread>
+  <message>&lt;FILE,192.168.45.1,sri.jpg&gt;</message>
+</record>
+<record>
+  <date>2016-10-21T12:49:46</date>
+  <millis>1477014586218</millis>
+  <sequence>27</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.CommandLine</class>
+  <method>stripCmd</method>
+  <thread>14</thread>
+  <message>Stripped FILE,192.168.45.1,sri.jpg</message>
+</record>
+<record>
+  <date>2016-10-21T12:49:46</date>
+  <millis>1477014586218</millis>
+  <sequence>28</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.CommandLine</class>
+  <method>stripSendCmd</method>
+  <thread>14</thread>
+  <message>FILE</message>
+</record>
+<record>
+  <date>2016-10-21T12:49:46</date>
+  <millis>1477014586218</millis>
+  <sequence>29</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.CommandLine</class>
+  <method>stripSendCmd</method>
+  <thread>14</thread>
+  <message>192.168.45.1</message>
+</record>
+<record>
+  <date>2016-10-21T12:49:46</date>
+  <millis>1477014586218</millis>
+  <sequence>30</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.CommandLine</class>
+  <method>stripSendCmd</method>
+  <thread>14</thread>
+  <message>sri.jpg</message>
+</record>
+<record>
+  <date>2016-10-21T12:49:46</date>
+  <millis>1477014586219</millis>
+  <sequence>31</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.CommandLine</class>
+  <method>sendFile</method>
+  <thread>14</thread>
+  <message>Sending a File</message>
+</record>
+<record>
+  <date>2016-10-21T12:49:46</date>
+  <millis>1477014586219</millis>
+  <sequence>32</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.CommandLine</class>
+  <method>sendFile</method>
+  <thread>14</thread>
+  <message>File and 192.168.45.1 and sri.jpg</message>
+</record>
+<record>
+  <date>2016-10-21T12:49:46</date>
+  <millis>1477014586220</millis>
+  <sequence>33</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.MessageProcessor</class>
+  <method>messageProcessorSendFile</method>
+  <thread>14</thread>
+  <message>Reached messageProcessorSendFile 192.168.45.1sri.jpg</message>
+</record>
+<record>
+  <date>2016-10-21T12:49:46</date>
+  <millis>1477014586220</millis>
+  <sequence>34</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.FileProcessor</class>
+  <method>sendFile</method>
+  <thread>14</thread>
+  <message>Reached sendFile/192.168.45.1sri.jpg</message>
+</record>
+<record>
+  <date>2016-10-21T12:49:46</date>
+  <millis>1477014586222</millis>
+  <sequence>35</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.FileSender</class>
+  <method>run</method>
+  <thread>19</thread>
+  <message>Running Send</message>
+</record>
+<record>
+  <date>2016-10-21T12:49:46</date>
+  <millis>1477014586222</millis>
+  <sequence>36</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.FileSender</class>
+  <method>sendFile</method>
+  <thread>19</thread>
+  <message>Send File/192.168.45.1namesri.jpg</message>
+</record>
+<record>
+  <date>2016-10-21T12:49:50</date>
+  <millis>1477014590222</millis>
+  <sequence>37</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.Discovery</class>
+  <method>broadcastCode</method>
+  <thread>12</thread>
+  <message>broadcasting code</message>
+</record>
+<record>
+  <date>2016-10-21T12:49:50</date>
+  <millis>1477014590223</millis>
+  <sequence>38</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.Discovery</class>
+  <method>discoverHost</method>
+  <thread>12</thread>
+  <message>{}</message>
+</record>
+<record>
+  <date>2016-10-21T12:49:50</date>
+  <millis>1477014590223</millis>
+  <sequence>39</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.MessageSendUDP</class>
+  <method>sendPacket</method>
+  <thread>20</thread>
+  <message>Send Buffer[ONLINE?IFFY]</message>
+</record>
+<record>
+  <date>2016-10-21T12:49:50</date>
+  <millis>1477014590223</millis>
+  <sequence>40</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.MessageSendUDP</class>
+  <method>sendPacket</method>
+  <thread>20</thread>
+  <message>Packet Sent:[B@75c294ad to IP /239.255.142.99</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:00</date>
+  <millis>1477014600279</millis>
+  <sequence>41</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.Discovery</class>
+  <method>broadcastCode</method>
+  <thread>12</thread>
+  <message>broadcasting code</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:00</date>
+  <millis>1477014600279</millis>
+  <sequence>42</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.Discovery</class>
+  <method>discoverHost</method>
+  <thread>12</thread>
+  <message>{}</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:00</date>
+  <millis>1477014600280</millis>
+  <sequence>43</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.MessageSendUDP</class>
+  <method>sendPacket</method>
+  <thread>21</thread>
+  <message>Send Buffer[ONLINE?IFFY]</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:00</date>
+  <millis>1477014600280</millis>
+  <sequence>44</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.MessageSendUDP</class>
+  <method>sendPacket</method>
+  <thread>21</thread>
+  <message>Packet Sent:[B@ffccecf to IP /239.255.142.99</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:10</date>
+  <millis>1477014610334</millis>
+  <sequence>45</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.Discovery</class>
+  <method>broadcastCode</method>
+  <thread>12</thread>
+  <message>broadcasting code</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:10</date>
+  <millis>1477014610334</millis>
+  <sequence>46</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.Discovery</class>
+  <method>discoverHost</method>
+  <thread>12</thread>
+  <message>{}</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:10</date>
+  <millis>1477014610335</millis>
+  <sequence>47</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.MessageSendUDP</class>
+  <method>sendPacket</method>
+  <thread>22</thread>
+  <message>Send Buffer[ONLINE?IFFY]</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:10</date>
+  <millis>1477014610335</millis>
+  <sequence>48</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.MessageSendUDP</class>
+  <method>sendPacket</method>
+  <thread>22</thread>
+  <message>Packet Sent:[B@43b38f53 to IP /239.255.142.99</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:20</date>
+  <millis>1477014620386</millis>
+  <sequence>49</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.Discovery</class>
+  <method>broadcastCode</method>
+  <thread>12</thread>
+  <message>broadcasting code</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:20</date>
+  <millis>1477014620387</millis>
+  <sequence>50</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.Discovery</class>
+  <method>discoverHost</method>
+  <thread>12</thread>
+  <message>{}</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:20</date>
+  <millis>1477014620387</millis>
+  <sequence>51</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.MessageSendUDP</class>
+  <method>sendPacket</method>
+  <thread>23</thread>
+  <message>Send Buffer[ONLINE?IFFY]</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:20</date>
+  <millis>1477014620387</millis>
+  <sequence>52</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.MessageSendUDP</class>
+  <method>sendPacket</method>
+  <thread>23</thread>
+  <message>Packet Sent:[B@7039e2a1 to IP /239.255.142.99</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:24</date>
+  <millis>1477014624777</millis>
+  <sequence>53</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.CommandLine</class>
+  <method>extractCmdPrefix</method>
+  <thread>14</thread>
+  <message>extractedSend &lt;</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:24</date>
+  <millis>1477014624777</millis>
+  <sequence>54</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.CommandLine</class>
+  <method>userInput</method>
+  <thread>14</thread>
+  <message>command to execute &lt;FILE,192.168.45.1,sri.jpg&gt; HEYYYYYYYYYYYYYYYYYYY</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:24</date>
+  <millis>1477014624777</millis>
+  <sequence>55</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.CommandLine</class>
+  <method>userInput</method>
+  <thread>14</thread>
+  <message>prefix Send </message>
+</record>
+<record>
+  <date>2016-10-21T12:50:24</date>
+  <millis>1477014624777</millis>
+  <sequence>56</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.CommandLine</class>
+  <method>stripSendCmd</method>
+  <thread>14</thread>
+  <message>Lets Strip the Send Message</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:24</date>
+  <millis>1477014624777</millis>
+  <sequence>57</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.CommandLine</class>
+  <method>stripCmd</method>
+  <thread>14</thread>
+  <message>&lt;FILE,192.168.45.1,sri.jpg&gt;</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:24</date>
+  <millis>1477014624777</millis>
+  <sequence>58</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.CommandLine</class>
+  <method>stripCmd</method>
+  <thread>14</thread>
+  <message>Stripped FILE,192.168.45.1,sri.jpg</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:24</date>
+  <millis>1477014624777</millis>
+  <sequence>59</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.CommandLine</class>
+  <method>stripSendCmd</method>
+  <thread>14</thread>
+  <message>FILE</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:24</date>
+  <millis>1477014624777</millis>
+  <sequence>60</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.CommandLine</class>
+  <method>stripSendCmd</method>
+  <thread>14</thread>
+  <message>192.168.45.1</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:24</date>
+  <millis>1477014624777</millis>
+  <sequence>61</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.CommandLine</class>
+  <method>stripSendCmd</method>
+  <thread>14</thread>
+  <message>sri.jpg</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:24</date>
+  <millis>1477014624778</millis>
+  <sequence>62</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.CommandLine</class>
+  <method>sendFile</method>
+  <thread>14</thread>
+  <message>Sending a File</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:24</date>
+  <millis>1477014624778</millis>
+  <sequence>63</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.CommandLine</class>
+  <method>sendFile</method>
+  <thread>14</thread>
+  <message>File and 192.168.45.1 and sri.jpg</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:24</date>
+  <millis>1477014624778</millis>
+  <sequence>64</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.MessageProcessor</class>
+  <method>messageProcessorSendFile</method>
+  <thread>14</thread>
+  <message>Reached messageProcessorSendFile 192.168.45.1sri.jpg</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:24</date>
+  <millis>1477014624778</millis>
+  <sequence>65</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.FileProcessor</class>
+  <method>sendFile</method>
+  <thread>14</thread>
+  <message>Reached sendFile/192.168.45.1sri.jpg</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:24</date>
+  <millis>1477014624779</millis>
+  <sequence>66</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.FileSender</class>
+  <method>run</method>
+  <thread>24</thread>
+  <message>Running Send</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:24</date>
+  <millis>1477014624779</millis>
+  <sequence>67</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.FileSender</class>
+  <method>sendFile</method>
+  <thread>24</thread>
+  <message>Send File/192.168.45.1namesri.jpg</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:30</date>
+  <millis>1477014630441</millis>
+  <sequence>68</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.Discovery</class>
+  <method>broadcastCode</method>
+  <thread>12</thread>
+  <message>broadcasting code</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:30</date>
+  <millis>1477014630441</millis>
+  <sequence>69</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.Discovery</class>
+  <method>discoverHost</method>
+  <thread>12</thread>
+  <message>{}</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:30</date>
+  <millis>1477014630442</millis>
+  <sequence>70</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.MessageSendUDP</class>
+  <method>sendPacket</method>
+  <thread>25</thread>
+  <message>Send Buffer[ONLINE?IFFY]</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:30</date>
+  <millis>1477014630442</millis>
+  <sequence>71</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.MessageSendUDP</class>
+  <method>sendPacket</method>
+  <thread>25</thread>
+  <message>Packet Sent:[B@cdf0ee9 to IP /239.255.142.99</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:37</date>
+  <millis>1477014637650</millis>
+  <sequence>72</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.CommandLine</class>
+  <method>extractCmdPrefix</method>
+  <thread>14</thread>
+  <message>extractedSend &lt;</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:37</date>
+  <millis>1477014637650</millis>
+  <sequence>73</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.CommandLine</class>
+  <method>userInput</method>
+  <thread>14</thread>
+  <message>command to execute &lt;FILE,192.168.45.1,sri.jpg&gt;    </message>
+</record>
+<record>
+  <date>2016-10-21T12:50:37</date>
+  <millis>1477014637650</millis>
+  <sequence>74</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.CommandLine</class>
+  <method>userInput</method>
+  <thread>14</thread>
+  <message>prefix Send </message>
+</record>
+<record>
+  <date>2016-10-21T12:50:37</date>
+  <millis>1477014637650</millis>
+  <sequence>75</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.CommandLine</class>
+  <method>stripSendCmd</method>
+  <thread>14</thread>
+  <message>Lets Strip the Send Message</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:37</date>
+  <millis>1477014637650</millis>
+  <sequence>76</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.CommandLine</class>
+  <method>stripCmd</method>
+  <thread>14</thread>
+  <message>&lt;FILE,192.168.45.1,sri.jpg&gt;</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:37</date>
+  <millis>1477014637650</millis>
+  <sequence>77</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.CommandLine</class>
+  <method>stripCmd</method>
+  <thread>14</thread>
+  <message>Stripped FILE,192.168.45.1,sri.jpg</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:37</date>
+  <millis>1477014637650</millis>
+  <sequence>78</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.CommandLine</class>
+  <method>stripSendCmd</method>
+  <thread>14</thread>
+  <message>FILE</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:37</date>
+  <millis>1477014637650</millis>
+  <sequence>79</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.CommandLine</class>
+  <method>stripSendCmd</method>
+  <thread>14</thread>
+  <message>192.168.45.1</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:37</date>
+  <millis>1477014637650</millis>
+  <sequence>80</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.CommandLine</class>
+  <method>stripSendCmd</method>
+  <thread>14</thread>
+  <message>sri.jpg</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:37</date>
+  <millis>1477014637651</millis>
+  <sequence>81</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.CommandLine</class>
+  <method>sendFile</method>
+  <thread>14</thread>
+  <message>Sending a File</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:37</date>
+  <millis>1477014637651</millis>
+  <sequence>82</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.CommandLine</class>
+  <method>sendFile</method>
+  <thread>14</thread>
+  <message>File and 192.168.45.1 and sri.jpg</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:37</date>
+  <millis>1477014637651</millis>
+  <sequence>83</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.MessageProcessor</class>
+  <method>messageProcessorSendFile</method>
+  <thread>14</thread>
+  <message>Reached messageProcessorSendFile 192.168.45.1sri.jpg</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:37</date>
+  <millis>1477014637651</millis>
+  <sequence>84</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.FileProcessor</class>
+  <method>sendFile</method>
+  <thread>14</thread>
+  <message>Reached sendFile/192.168.45.1sri.jpg</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:37</date>
+  <millis>1477014637652</millis>
+  <sequence>85</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.FileSender</class>
+  <method>run</method>
+  <thread>26</thread>
+  <message>Running Send</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:37</date>
+  <millis>1477014637652</millis>
+  <sequence>86</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.FileSender</class>
+  <method>sendFile</method>
+  <thread>26</thread>
+  <message>Send File/192.168.45.1namesri.jpg</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:40</date>
+  <millis>1477014640493</millis>
+  <sequence>87</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.Discovery</class>
+  <method>broadcastCode</method>
+  <thread>12</thread>
+  <message>broadcasting code</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:40</date>
+  <millis>1477014640493</millis>
+  <sequence>88</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.Discovery</class>
+  <method>discoverHost</method>
+  <thread>12</thread>
+  <message>{}</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:40</date>
+  <millis>1477014640493</millis>
+  <sequence>89</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.MessageSendUDP</class>
+  <method>sendPacket</method>
+  <thread>27</thread>
+  <message>Send Buffer[ONLINE?IFFY]</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:40</date>
+  <millis>1477014640494</millis>
+  <sequence>90</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.MessageSendUDP</class>
+  <method>sendPacket</method>
+  <thread>27</thread>
+  <message>Packet Sent:[B@523f6ce5 to IP /239.255.142.99</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:50</date>
+  <millis>1477014650543</millis>
+  <sequence>91</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.Discovery</class>
+  <method>broadcastCode</method>
+  <thread>12</thread>
+  <message>broadcasting code</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:50</date>
+  <millis>1477014650543</millis>
+  <sequence>92</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.Discovery</class>
+  <method>discoverHost</method>
+  <thread>12</thread>
+  <message>{}</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:50</date>
+  <millis>1477014650544</millis>
+  <sequence>93</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.MessageSendUDP</class>
+  <method>sendPacket</method>
+  <thread>28</thread>
+  <message>Send Buffer[ONLINE?IFFY]</message>
+</record>
+<record>
+  <date>2016-10-21T12:50:50</date>
+  <millis>1477014650544</millis>
+  <sequence>94</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.MessageSendUDP</class>
+  <method>sendPacket</method>
+  <thread>28</thread>
+  <message>Packet Sent:[B@67565b6a to IP /239.255.142.99</message>
+</record>
+<record>
+  <date>2016-10-21T12:51:00</date>
+  <millis>1477014660595</millis>
+  <sequence>95</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.Discovery</class>
+  <method>broadcastCode</method>
+  <thread>12</thread>
+  <message>broadcasting code</message>
+</record>
+<record>
+  <date>2016-10-21T12:51:00</date>
+  <millis>1477014660596</millis>
+  <sequence>96</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.Discovery</class>
+  <method>discoverHost</method>
+  <thread>12</thread>
+  <message>{}</message>
+</record>
+<record>
+  <date>2016-10-21T12:51:00</date>
+  <millis>1477014660596</millis>
+  <sequence>97</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.MessageSendUDP</class>
+  <method>sendPacket</method>
+  <thread>29</thread>
+  <message>Send Buffer[ONLINE?IFFY]</message>
+</record>
+<record>
+  <date>2016-10-21T12:51:00</date>
+  <millis>1477014660596</millis>
+  <sequence>98</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.MessageSendUDP</class>
+  <method>sendPacket</method>
+  <thread>29</thread>
+  <message>Packet Sent:[B@68f32d03 to IP /239.255.142.99</message>
+</record>
+<record>
+  <date>2016-10-21T12:51:10</date>
+  <millis>1477014670647</millis>
+  <sequence>99</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.Discovery</class>
+  <method>broadcastCode</method>
+  <thread>12</thread>
+  <message>broadcasting code</message>
+</record>
+<record>
+  <date>2016-10-21T12:51:10</date>
+  <millis>1477014670648</millis>
+  <sequence>100</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.Discovery</class>
+  <method>discoverHost</method>
+  <thread>12</thread>
+  <message>{}</message>
+</record>
+<record>
+  <date>2016-10-21T12:51:10</date>
+  <millis>1477014670648</millis>
+  <sequence>101</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.MessageSendUDP</class>
+  <method>sendPacket</method>
+  <thread>30</thread>
+  <message>Send Buffer[ONLINE?IFFY]</message>
+</record>
+<record>
+  <date>2016-10-21T12:51:10</date>
+  <millis>1477014670648</millis>
+  <sequence>102</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.MessageSendUDP</class>
+  <method>sendPacket</method>
+  <thread>30</thread>
+  <message>Packet Sent:[B@21ec8d87 to IP /239.255.142.99</message>
+</record>
+<record>
+  <date>2016-10-21T12:51:20</date>
+  <millis>1477014680705</millis>
+  <sequence>103</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.Discovery</class>
+  <method>broadcastCode</method>
+  <thread>12</thread>
+  <message>broadcasting code</message>
+</record>
+<record>
+  <date>2016-10-21T12:51:20</date>
+  <millis>1477014680705</millis>
+  <sequence>104</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.Discovery</class>
+  <method>discoverHost</method>
+  <thread>12</thread>
+  <message>{}</message>
+</record>
+<record>
+  <date>2016-10-21T12:51:20</date>
+  <millis>1477014680706</millis>
+  <sequence>105</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.MessageSendUDP</class>
+  <method>sendPacket</method>
+  <thread>31</thread>
+  <message>Send Buffer[ONLINE?IFFY]</message>
+</record>
+<record>
+  <date>2016-10-21T12:51:20</date>
+  <millis>1477014680706</millis>
+  <sequence>106</sequence>
+  <logger>global</logger>
+  <level>INFO</level>
+  <class>chatapp.MessageSendUDP</class>
+  <method>sendPacket</method>
+  <thread>31</thread>
+  <message>Packet Sent:[B@32b571a5 to IP /239.255.142.99</message>
+</record>
